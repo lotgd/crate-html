@@ -1,0 +1,15 @@
+body {
+    padding-top: 50px;
+}
+
+body > main {
+    padding-top: 1rem;
+}
+
+body > footer {
+    border-top: 1px solid black;
+    padding: 2em 2em;
+
+    background-color: #e0e0e0;
+    color: #777777;
+}

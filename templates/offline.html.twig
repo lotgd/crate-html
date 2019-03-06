@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/offline.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+    <div id="content-center">
+        <p>Welcome to Daenerys, "Legend of the Green Dragon 2.0".</p>
+
+        <form method="post" class="signin">
+            <h2 class="h3 mb-3 font-weight-normal">Sign in</h2>
+
+            {% if login.error %}
+                <div class="alert alert-danger">{{ login.error.messageKey|trans(login.error.messageData, 'security') }}</div>
+            {% endif %}
+            <fieldset>
+                <label for="loginEmail" class="sr-only">Email</label>
+                <input type="email" value="{{ login.last_username }}" name="email" id="loginEmail"
+                       placeholder="Email" required autofocus
+                       class="form-control" />
+
+                <label for="loginPassword" class="sr-only">Password</label>
+                <input type="password" name="password" id="loginPassword" placeholder="password" required
+                       class="form-control" />
+
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+
+                <button type="submit" class="btn btn-md btn-primary btn-block">
+                    Sign in
+                </button>
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}
