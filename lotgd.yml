@@ -1,1 +1,4 @@
 entityNamespace: "LotGD\\Crate\\WWW\\Model\\"
+daenerysCommands:
+    - "Console\\Commands\\CreatePasswordUserCommand"
+    - "Console\\Commands\\ListUsersCommand"

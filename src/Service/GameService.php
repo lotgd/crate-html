@@ -35,4 +35,12 @@ class GameService
     {
         return self::$game->getEntityManager();
     }
+
+    /**
+     * Shorthand method to save entity manager.
+     */
+    public function save()
+    {
+        $this->getEntityManager()->flush();
+    }
 }

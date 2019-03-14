@@ -1,0 +1,16 @@
+<h2>Characters</h2>
+
+{% if user.characters|length == 0 %}
+    <p>No characters available.</p>
+{% else %}
+    <p>Characters available.</p>
+
+    {% for char in user.characters %}
+        <p>{{ char.displayNamegit  }}</p>
+    {% endfor %}
+{% endif %}
+
+
+<a href="{{ path("ucp_character_add") }}" class="btn btn-primary btn-small">
+    Add character
+</a>

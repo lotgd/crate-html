@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/offline.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+    <div id="content-center">
+        <p>Welcome user {{ user.displayname }}.</p>
+
+        {{ include("panels/characterpanel.html.twig", {
+            'realm': realm,
+            'user': user,
+        }) }}
+    </div>
+{% endblock %}
+
+{% block nav_homelink %}
+    <a class="nav-link" href="{{ path("ucp_root") }}">Home <span class="sr-only">(current)</span></a>
+{% endblock %}
+
+{% block nav_rest %}
+    <div class="navbar-nav">
+        <a class="nav-link" href="{{ path("signoff") }}">Sign out</a>
+    </div>
+{% endblock %}

@@ -1887,12 +1887,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lotgd/core.git",
-                "reference": "8e34525fcfb234493e75473f981e34b4aff09f17"
+                "reference": "912dec8eddcaf549c479f6df2dfa6786c0f8e096"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lotgd/core/zipball/8e34525fcfb234493e75473f981e34b4aff09f17",
-                "reference": "8e34525fcfb234493e75473f981e34b4aff09f17",
+                "url": "https://api.github.com/repos/lotgd/core/zipball/912dec8eddcaf549c479f6df2dfa6786c0f8e096",
+                "reference": "912dec8eddcaf549c479f6df2dfa6786c0f8e096",
                 "shasum": ""
             },
             "require": {
@@ -1929,7 +1929,7 @@
                 "source": "https://github.com/lotgd/core/tree/feature/symfony4",
                 "issues": "https://github.com/lotgd/core/issues"
             },
-            "time": "2019-03-04T14:55:35+00:00"
+            "time": "2019-03-08T13:29:31+00:00"
         },
         {
             "name": "monolog/monolog",

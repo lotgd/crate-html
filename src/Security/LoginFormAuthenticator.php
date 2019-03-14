@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace LotGD\Crate\WWW\Security;
 
 
+use Doctrine\Common\Util\Debug;
 use LotGD\Crate\WWW\Model\User;
 use LotGD\Crate\WWW\Service\GameService;
+use LotGD\Crate\WWW\Service\UserService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -30,16 +32,19 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     private $router;
     private $csrfTokenManager;
     private $passwordEncoder;
+    private $userService;
 
     public function __construct(
         GameService $gameService,
         RouterInterface $router,
         CsrfTokenManagerInterface $csrfTokenManager,
+        UserService $userService,
         UserPasswordEncoderInterface $passwordEncoder
     ) {
         $this->gameService = $gameService;
         $this->router = $router;
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->userService = $userService;
         $this->passwordEncoder = $passwordEncoder;
     }
 
@@ -75,8 +80,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->gameService->getEntityManager()->getRepository(User::class)
-            ->findOneBy(["email" => $credentials["email"]]);
+        $user = $this->userService->getUserByEmail($credentials["email"]);
 
         if (!$user) {
             throw new CustomUserMessageAuthenticationException("Account could not be found.");
@@ -87,7 +91,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        return $this->passwordEncoder->isPasswordValid($user, $credentials["password"]);
+        return $user->passwordIsValid($credentials["password"]);
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
@@ -96,7 +100,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->router->generate("ucp_root"));
     }
 
     protected function getLoginUrl()

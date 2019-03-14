@@ -1,7 +1,8 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: ~ }
+        user_provider:
+            id: LotGD\Crate\WWW\Security\UserProvider
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -11,6 +12,9 @@ security:
             guard:
                 authenticators:
                     - LotGD\Crate\WWW\Security\LoginFormAuthenticator
+            logout:
+                path: /signoff
+                target: /
 
 
             # activate different ways to authenticate
@@ -24,9 +28,6 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        - { path: ^/ucp, roles: ROLE_USER }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-    encoders:
-        LotGD\Create\WWW\Models\User:
-            algorithm: bcrypt
-            cost: 12
