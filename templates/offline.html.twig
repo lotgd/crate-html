@@ -9,7 +9,7 @@
     <div id="content-center">
         <p>Welcome to Daenerys, "Legend of the Green Dragon 2.0".</p>
 
-        <form method="post" class="signin">
+        <form method="post" class="signin" action="{{ path("root") }}">
             <h2 class="h3 mb-3 font-weight-normal">Sign in</h2>
 
             {% if login.error %}
@@ -33,6 +33,8 @@
                     Sign in
                 </button>
             </fieldset>
+
+            <div>Don't have an account? <a href="{{ path("registration") }}">Register one now.</a></div>
         </form>
     </div>
 {% endblock %}

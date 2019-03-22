@@ -9,6 +9,7 @@ use LotGD\Crate\WWW\Form\CharacterCreationType;
 use LotGD\Crate\WWW\Service\Realm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use LotGD\Crate\WWW\Service\GameService;
 use Symfony\Component\Security\Core\Security;
@@ -18,14 +19,14 @@ class UserPanelController extends AbstractController
     /**
      * @Route("/ucp", name="ucp_root")
      * @param GameService $gameService
-     * @param Security $securitygit
+     * @param Security $security
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function root(
         GameService $gameService,
         Realm $realm,
         Security $security
-    ) {
+    ): Response {
         return $this->render('ucp.html.twig', [
             "realm" => $realm,
             "user" => $security->getUser(),
@@ -43,7 +44,7 @@ class UserPanelController extends AbstractController
         Realm $realm,
         Security $security,
         Request $request
-    ) {
+    ): Response {
         $character = new Character();
         $form = $this->createForm(CharacterCreationType::class, $character);
 

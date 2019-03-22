@@ -21,9 +21,15 @@ class CharacterCreationType extends AbstractType
     {
         $builder
             ->add("name", TextType::class, [
-                "empty_data" => ""
+                "empty_data" => "",
+                "label" => "Character name",
+                "constraints" => [
+                    new NotBlank(),
+                ]
             ])
-            ->add("save", SubmitType::class);
+            ->add("save", SubmitType::class, [
+                "label" => "Create character"
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -31,10 +37,5 @@ class CharacterCreationType extends AbstractType
         $resolver->setDefaults([
             "data_class" => Character::class
         ]);
-    }
-
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
-    {
-        $metadata->addPropertyConstraint('name', new NotBlank());
     }
 }

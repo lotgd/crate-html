@@ -1,0 +1,14 @@
+{% extends 'offline.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/offline.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+    <div id="content-center">
+        <p>Register an new account.</p>
+
+        {{ form(form) }}
+    </div>
+{% endblock %}
