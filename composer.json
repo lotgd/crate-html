@@ -36,6 +36,10 @@
         "symfony/yaml": "4.2.*"
     },
     "require-dev": {
+        "lotgd/module-forest": "dev-master",
+        "lotgd/module-gender": "^0.4.0@alpha",
+        "lotgd/module-new-day": "^0.4.0@alpha",
+        "lotgd/module-res-fight": "*",
         "lotgd/module-scene-bundle": "^0.4.0@alpha",
         "lotgd/module-village": "^0.4.0@alpha",
         "symfony/debug-pack": "*",

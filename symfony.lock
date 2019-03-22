@@ -116,6 +116,18 @@
     "lotgd/core": {
         "version": "dev-feature/symfony4"
     },
+    "lotgd/module-forest": {
+        "version": "v0.4.0"
+    },
+    "lotgd/module-gender": {
+        "version": "v0.4.0-alpha"
+    },
+    "lotgd/module-new-day": {
+        "version": "v0.4.0-alpha"
+    },
+    "lotgd/module-res-fight": {
+        "version": "v0.4.0"
+    },
     "lotgd/module-scene-bundle": {
         "version": "v0.4.0-alpha"
     },
