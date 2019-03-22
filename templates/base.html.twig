@@ -47,16 +47,28 @@
     </div>
 
 
-    <main role="main" id="content" class="container">
-        {% block content %}
-        {% endblock %}
+    <main role="main" id="content" class="container-fluid">
+        <div class="row">
+            <div class="col">
+                {% block left_content %}
+                {% endblock %}
+            </div>
+            <div class="col-md-7">
+                {% block content %}
+                {% endblock %}
+            </div>
+            <div class="col">
+                {% block right_content %}
+                {% endblock %}
+            </div>
+        </div>
     </main>
 
 
-    <footer>
+    <footer class="small">
         {% block footer %}
-            Daenerys web client.
-            Daenerys core running version .
+            <div>Core {{ realm.core.name }} at version {{ realm.core.version }}. © {{ realm.core.authors }}</div>
+            <div>Crate {{ realm.crate.name }} at version {{ realm.crate.version }}. © {{ realm.core.authors }}</div>
         {% endblock %}
     </footer>
 

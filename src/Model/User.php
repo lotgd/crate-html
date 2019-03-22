@@ -144,6 +144,22 @@ class User implements SaveableInterface, UserInterface, EquatableInterface, \Ser
     }
 
     /**
+     * Returns the character with a given id or null if not found.
+     * @param string $characterId
+     * @return Character|null
+     */
+    public function getCharacterWithId(string $characterId): ?Character
+    {
+        foreach ($this->characters as $character) {
+            if ($characterId == $character->getId()) {
+                return $character;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Returns true if the user has the passed character.
      * @param Character $character
      * @return bool
@@ -155,6 +171,22 @@ class User implements SaveableInterface, UserInterface, EquatableInterface, \Ser
         }
 
         return $this->characters->contains($character);
+    }
+
+    /**
+     * Returns true if the user has the character given by its id
+     * @param string $characterId
+     * @return bool
+     */
+    public function hasCharacterWithId(string $characterId): bool
+    {
+        foreach ($this->characters as $character) {
+            if ($characterId == $character->getId()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

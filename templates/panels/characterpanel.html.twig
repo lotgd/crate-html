@@ -3,14 +3,30 @@
 {% if user.characters|length == 0 %}
     <p>No characters available.</p>
 {% else %}
-    <p>Characters available.</p>
+    <p>Please choose a character.</p>
 
+    <div class="row" style="margin-bottom: 1em;">
     {% for char in user.characters %}
-        <p>{{ char.displayNamegit  }}</p>
+        <div class="col-md-6 col-lg-2">
+            <div class="card">
+                <h5 class="card-header">{{ char.displayName }}</h5>
+                <div style="text-align: center; padding: 0 1rem;">
+                    <img src="{{ asset("icons/default-avatar.svg") }}" class="card-img-top" alt="character avatar for {{ char.displayName }}">
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-6">Level</dt>
+                        <dd class="col-6">{{ char.level }}</dd>
+                    </dl>
+                    <a href="{{ path('scene_view', {'charId': char.id}) }}" class="btn btn-primary btn-sm" style="display: block;">Use</a>
+                </div>
+            </div>
+        </div>
     {% endfor %}
+    </div>
 {% endif %}
 
 
 <a href="{{ path("ucp_character_add") }}" class="btn btn-primary btn-small">
-    Add character
+    Create new character
 </a>

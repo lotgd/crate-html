@@ -6,6 +6,7 @@ namespace LotGD\Crate\WWW\Controller;
 
 use LotGD\Core\Models\Character;
 use LotGD\Crate\WWW\Form\CharacterCreationType;
+use LotGD\Crate\WWW\Service\Realm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,13 +21,13 @@ class UserPanelController extends AbstractController
      * @param Security $securitygit
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function root(GameService $gameService, Security $security)
-    {
+    public function root(
+        GameService $gameService,
+        Realm $realm,
+        Security $security
+    ) {
         return $this->render('ucp.html.twig', [
-            "realm" => [
-                "name" => "Daenerys",
-                "version" => "0.1-beta"
-            ],
+            "realm" => $realm,
             "user" => $security->getUser(),
         ]);
     }
@@ -37,8 +38,12 @@ class UserPanelController extends AbstractController
      * @param Security $security
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function addCharacter(GameService $gameService, Security $security, Request $request)
-    {
+    public function addCharacter(
+        GameService $gameService,
+        Realm $realm,
+        Security $security,
+        Request $request
+    ) {
         $character = new Character();
         $form = $this->createForm(CharacterCreationType::class, $character);
 
@@ -52,10 +57,7 @@ class UserPanelController extends AbstractController
         }
 
         return $this->render('ucp/character_add.html.twig', [
-            "realm" => [
-                "name" => "Daenerys",
-                "version" => "0.1-beta"
-            ],
+            "realm" => $realm,
             "user" => $security->getUser(),
             "form" => $form->createView(),
         ]);

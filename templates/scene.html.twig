@@ -1,0 +1,40 @@
+{% extends 'ucp.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/offline.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+    <h1>{{ viewpoint.title }}</h1>
+
+    {{ viewpoint.description }}
+{% endblock %}
+
+{% block left_content %}
+    {% for ag in viewpoint.actionGroups %}
+        {% if ag.id == "lotgd/core/hidden" %}
+        {% elseif ag.id == "lotgd/core/default" %}
+        {% else %}
+            <h6 class="nav-header text-secondary" title="{{ ag.id }}">{{ ag.title }}</h6>
+        {% endif %}
+
+        <nav class="nav flex-column">
+            {% for a in ag.actions %}
+                <span class="nav-item">
+                    <a class="nav-link" href="{{ path('scene_view', {'charId': character.id, 'action': a.id}) }}">
+                        {% if a.title is empty %}
+                            ???
+                        {% else %}
+                            {{ a.title }}
+                        {% endif %}
+                    </a>
+                </span>
+            {% endfor %}
+        </nav>
+    {% endfor %}
+{% endblock %}
+
+{% block right_content %}
+    <p> You are playing {{ character.displayName }}</p>
+{% endblock %}

@@ -1,11 +1,19 @@
 {
+    "name": "lotgd/crate-html",
+    "description": "Adapts the lotgd/core engine and provides a web interface to play the game.",
+    "authors": [
+        {
+            "name": "Basilius Sauter",
+            "email": "basilius.sauter@gmail.com"
+        }
+    ],
     "type": "lotgd-crate",
     "license": "AGPL-3.0",
     "require": {
         "php": "^7.1.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "lotgd/core": "dev-feature/symfony4",
+        "lotgd/core": "dev-feature/symfony4 as 0.4.2",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/asset": "4.2.*",
         "symfony/console": "4.2.*",
@@ -28,6 +36,8 @@
         "symfony/yaml": "4.2.*"
     },
     "require-dev": {
+        "lotgd/module-scene-bundle": "^0.4.0@alpha",
+        "lotgd/module-village": "^0.4.0@alpha",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
@@ -81,8 +91,10 @@
     },
     "repositories": [
         {
-            "type": "vcs",
-            "url": "https://github.com/lotgd/core"
+            "type": "composer",
+            "url": "https://raw.githubusercontent.com/lotgd/packages/master/build/packages.json"
         }
-    ]
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable" : true
 }

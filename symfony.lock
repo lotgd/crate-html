@@ -116,6 +116,12 @@
     "lotgd/core": {
         "version": "dev-feature/symfony4"
     },
+    "lotgd/module-scene-bundle": {
+        "version": "v0.4.0-alpha"
+    },
+    "lotgd/module-village": {
+        "version": "v0.4.0-alpha"
+    },
     "monolog/monolog": {
         "version": "1.24.0"
     },
@@ -318,6 +324,9 @@
         }
     },
     "symfony/polyfill-intl-icu": {
+        "version": "v1.10.0"
+    },
+    "symfony/polyfill-intl-idn": {
         "version": "v1.10.0"
     },
     "symfony/polyfill-mbstring": {

@@ -8,6 +8,11 @@ namespace LotGD\Crate\WWW\Service;
 use LotGD\Crate\WWW\Manager\UserManager;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Class UserService
+ * @package LotGD\Crate\WWW\Service
+ * @see UserManager
+ */
 class UserService
 {
     private $userManager;
