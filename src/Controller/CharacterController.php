@@ -48,6 +48,7 @@ class CharacterController extends AbstractController
         if (!empty($action)) {
             try {
                 $game->takeAction($action);
+                return $this->redirectToRoute("scene_view", ["charId" => $charId]);
             } catch (ActionNotFoundException $e) {
                 $viewpoint_error = $e;
             }

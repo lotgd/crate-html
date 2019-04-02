@@ -8,6 +8,12 @@
 {% block content %}
     <h1>{{ viewpoint.title }}</h1>
 
+    {% if viewpoint_error %}
+    <div class="alert-danger">
+        An error occured: {{ viewpoint_error.message }}
+    </div>
+    {% endif %}
+
     {{ viewpoint.description }}
 {% endblock %}
 
