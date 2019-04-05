@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "60a6dc3cee211e20eaf102f14c46a233",
+    "content-hash": "fac7947a4353735d1a2c6f44966f18e8",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1887,16 +1887,16 @@
         },
         {
             "name": "lotgd/core",
-            "version": "dev-feature/admin-commands",
+            "version": "0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lotgd/core.git",
-                "reference": "4d1ab9e7634596c353d61ff90ce4ce31bf666721"
+                "reference": "4ca81a37893df5dc6e442d16dc88447a47e2e4e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lotgd/core/zipball/4d1ab9e7634596c353d61ff90ce4ce31bf666721",
-                "reference": "4d1ab9e7634596c353d61ff90ce4ce31bf666721",
+                "url": "https://api.github.com/repos/lotgd/core/zipball/4ca81a37893df5dc6e442d16dc88447a47e2e4e1",
+                "reference": "4ca81a37893df5dc6e442d16dc88447a47e2e4e1",
                 "shasum": ""
             },
             "require": {
@@ -1930,10 +1930,10 @@
             ],
             "description": "Core functionality for Legend of the Green Dragon, a text-based RPG game.",
             "support": {
-                "source": "https://github.com/lotgd/core/tree/feature/admin-commands",
+                "source": "https://github.com/lotgd/core/tree/v0.5.0",
                 "issues": "https://github.com/lotgd/core/issues"
             },
-            "time": "2019-04-02T19:12:02+00:00"
+            "time": "2019-04-05T11:19:33+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -3715,16 +3715,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.2.0",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "7f04fb50c5da6d020e4df743b4c764c188bb24bf"
+                "reference": "305a6cd75a54992f47f46eb655245b6c9a06997a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/7f04fb50c5da6d020e4df743b4c764c188bb24bf",
-                "reference": "7f04fb50c5da6d020e4df743b4c764c188bb24bf",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/305a6cd75a54992f47f46eb655245b6c9a06997a",
+                "reference": "305a6cd75a54992f47f46eb655245b6c9a06997a",
                 "shasum": ""
             },
             "require": {
@@ -3760,7 +3760,7 @@
                 }
             ],
             "description": "Composer plugin for Symfony",
-            "time": "2019-02-21T11:31:25+00:00"
+            "time": "2019-04-03T17:16:03+00:00"
         },
         {
             "name": "symfony/form",
@@ -5865,6 +5865,61 @@
             "time": "2019-03-30T15:58:42+00:00"
         },
         {
+            "name": "twig/extensions",
+            "version": "v1.5.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig-extensions.git",
+                "reference": "57873c8b0c1be51caa47df2cdb824490beb16202"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/57873c8b0c1be51caa47df2cdb824490beb16202",
+                "reference": "57873c8b0c1be51caa47df2cdb824490beb16202",
+                "shasum": ""
+            },
+            "require": {
+                "twig/twig": "^1.27|^2.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^3.4",
+                "symfony/translation": "^2.7|^3.4"
+            },
+            "suggest": {
+                "symfony/translation": "Allow the time_diff output to be translated"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Twig_Extensions_": "lib/"
+                },
+                "psr-4": {
+                    "Twig\\Extensions\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Common additional features for Twig that do not directly belong in core",
+            "keywords": [
+                "i18n",
+                "text"
+            ],
+            "time": "2018-12-05T18:34:18+00:00"
+        },
+        {
             "name": "twig/twig",
             "version": "v2.7.4",
             "source": {
@@ -6339,21 +6394,65 @@
             "time": "2019-03-26T09:01:07+00:00"
         },
         {
+            "name": "lotgd/module-res-charstats",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lotgd/module-res-charstats.git",
+                "reference": "da79d327aed3178fcbb53a43a45f193d53bb4716"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lotgd/module-res-charstats/zipball/da79d327aed3178fcbb53a43a45f193d53bb4716",
+                "reference": "da79d327aed3178fcbb53a43a45f193d53bb4716",
+                "shasum": ""
+            },
+            "require": {
+                "lotgd/core": ">=0.5.0-alpha"
+            },
+            "require-dev": {
+                "phpunit/dbunit": "*",
+                "phpunit/phpunit": "^4.1|^5.1"
+            },
+            "type": "lotgd-module",
+            "autoload": {
+                "psr-4": {
+                    "LotGD\\Module\\Res\\Charstats\\": "src/",
+                    "LotGD\\Module\\Res\\Charstats\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "AGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Basilius Sauter",
+                    "email": "basilius.sauter@gmail.com"
+                }
+            ],
+            "description": "This module adds basic stats to the default character stats of lotgd/core",
+            "support": {
+                "source": "https://github.com/lotgd/module-res-charstats/tree/master",
+                "issues": "https://github.com/lotgd/module-res-charstats/issues"
+            },
+            "time": "2019-04-05T11:17:03+00:00"
+        },
+        {
             "name": "lotgd/module-res-fight",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lotgd/module-res-fight.git",
-                "reference": "22d6083cce6c1f1809bf9e112d754d94148a9060"
+                "reference": "090b9ff1af91134b078fe93db4391c6ad2bad36c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lotgd/module-res-fight/zipball/22d6083cce6c1f1809bf9e112d754d94148a9060",
-                "reference": "22d6083cce6c1f1809bf9e112d754d94148a9060",
+                "url": "https://api.github.com/repos/lotgd/module-res-fight/zipball/090b9ff1af91134b078fe93db4391c6ad2bad36c",
+                "reference": "090b9ff1af91134b078fe93db4391c6ad2bad36c",
                 "shasum": ""
             },
             "require": {
-                "lotgd/core": ">0.5",
+                "lotgd/core": ">=0.5",
                 "lotgd/module-new-day": ">0.4.0-alpha",
                 "lotgd/module-village": ">0.4.0-alpha"
             },
@@ -6382,7 +6481,7 @@
                 "source": "https://github.com/lotgd/module-res-fight/tree/master",
                 "issues": "https://github.com/lotgd/module-res-fight/issues"
             },
-            "time": "2019-03-26T09:16:21+00:00"
+            "time": "2019-04-05T12:43:04+00:00"
         },
         {
             "name": "lotgd/module-scene-bundle",
@@ -7251,17 +7350,10 @@
             "time": "2019-03-04T10:37:56+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "0.5.1",
-            "alias_normalized": "0.5.1.0",
-            "version": "dev-feature/admin-commands",
-            "package": "lotgd/core"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "lotgd/core": 20
+        "lotgd/module-res-charstats": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

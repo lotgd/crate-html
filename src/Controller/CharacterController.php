@@ -6,6 +6,7 @@ namespace LotGD\Crate\WWW\Controller;
 
 
 use LotGD\Core\Exceptions\ActionNotFoundException;
+use LotGD\Core\Models\CharacterStats;
 use LotGD\Crate\WWW\Service\GameService;
 use LotGD\Crate\WWW\Service\Realm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -58,6 +59,7 @@ class CharacterController extends AbstractController
             "realm" => $realm,
             "user" => $security->getUser(),
             "character" => $game->getCharacter(),
+            "character_stats" => new CharacterStats($game, $game->getCharacter()),
             "viewpoint" => $game->getViewpoint(),
             "viewpoint_error" => $viewpoint_error??null,
         ]);

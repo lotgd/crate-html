@@ -14,7 +14,7 @@
     </div>
     {% endif %}
 
-    {{ viewpoint.description }}
+    {{ viewpoint.description|e|viewpoint_format|raw }}
 {% endblock %}
 
 {% block left_content %}
@@ -41,6 +41,33 @@
     {% endfor %}
 {% endblock %}
 
+{% macro progressBar(val, max, min=0) %}
+    <div class="progress" style="height: 1.5em">
+        <div class="progress-bar" role="progressbar"
+             style="width: {{ val/max*100|e }}%;" aria-valuenow="{{ val|e }}" aria-valuemin="{{ min|e }}" aria-valuemax="{{ max|e }}"
+        >{{ val|e }}/{{ max|e }}</div>
+    </div>
+{% endmacro %}
+{% import _self as macro %}
+
 {% block right_content %}
-    <p> You are playing {{ character.displayName }}</p>
+    {% if character_stats %}
+        <table class="table small">
+            {% for group in character_stats.iterate %}
+                <tr class="table-primary"><th colspan="2">{{ group.name }}</th></tr>
+
+                {% for item in group.iterate %}
+                    {% if item is instanceOf("LotGD\\Module\\Res\\CharStats\\CharacterStats\\ProgressBarCharacterStat") %}
+                        <tr><td>{{ item.name }}</td><td> {{ macro.progressBar(item.value, item.max, item.min) }}</td></tr>
+                    {% elseif item is instanceOf("LotGD\\Core\\Models\\CharacterStats\\BaseCharacterStat") %}
+                        <tr><td>{{ item.name }}</td><td> {{ item.value }}</td></tr>
+                    {% else %}
+                        <tr><td>{{ item.name }}</td><td> {{ item.valueAsString }}</td></tr>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </table>
+    {% else %}
+        <p> You are playing {{ character.displayName }}</p>
+    {% endif %}
 {% endblock %}
