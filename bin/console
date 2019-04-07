@@ -28,15 +28,23 @@ if (!class_exists(Application::class)) {
 $input = new ArgvInput();
 if (null !== $env = $input->getParameterOption(['--env', '-e'], null, true)) {
     putenv('APP_ENV='.$_SERVER['APP_ENV'] = $_ENV['APP_ENV'] = $env);
+} else {
+    if (in_array("vendor", explode(DIRECTORY_SEPARATOR, __PATH__))) {
+        $_SERVER['APP_ENV'] = "prod";
+    } else {
+        $_SERVER['APP_ENV'] = "env";
+    }
 }
 
 if ($input->hasParameterOption('--no-debug', true)) {
     putenv('APP_DEBUG='.$_SERVER['APP_DEBUG'] = $_ENV['APP_DEBUG'] = '0');
+} else {
+    if (in_array("vendor", explode(DIRECTORY_SEPARATOR, __PATH__))) {
+        $_SERVER['APP_DEBUG'] = false;
+    } else {
+        $_SERVER['APP_DEBUG'] = true;
+    }
 }
-
-includeIfExists(getcwd() . '/vendor/lotgd/crate-html/config/bootstrap.php') ||
-includeIfExists(__DIR__ . '/../vendor/lotgd/crate-html/config/bootstrap.php') ||
-includeIfExists(__DIR__ . '/../config/bootstrap.php');
 
 if ($_SERVER['APP_DEBUG']) {
     umask(0000);
