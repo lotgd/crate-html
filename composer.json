@@ -50,6 +50,9 @@
         "symfony/test-pack": "*",
         "symfony/web-server-bundle": "4.2.*"
     },
+    "bin": [
+        "bin/console"
+    ],
     "config": {
         "preferred-install": {
             "*": "dist"

@@ -6485,21 +6485,21 @@
         },
         {
             "name": "lotgd/module-scene-bundle",
-            "version": "dev-master",
+            "version": "v0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lotgd/module-scene-bundle.git",
-                "reference": "d85dbc3194103bb59c605f8f0a80f8582230e1fa"
+                "reference": "6101755bc9a30413ca6918c8a2dc7c9d059ed942"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lotgd/module-scene-bundle/zipball/d85dbc3194103bb59c605f8f0a80f8582230e1fa",
-                "reference": "d85dbc3194103bb59c605f8f0a80f8582230e1fa",
+                "url": "https://api.github.com/repos/lotgd/module-scene-bundle/zipball/6101755bc9a30413ca6918c8a2dc7c9d059ed942",
+                "reference": "6101755bc9a30413ca6918c8a2dc7c9d059ed942",
                 "shasum": ""
             },
             "require": {
-                "lotgd/core": ">=0.5",
-                "lotgd/module-village": ">=0.4"
+                "lotgd/core": ">=0.5.0",
+                "lotgd/module-village": ">=0.5.0"
             },
             "require-dev": {
                 "phpunit/dbunit": "*",
@@ -6526,27 +6526,27 @@
             ],
             "description": "A bundle of small scenes.",
             "support": {
-                "source": "https://github.com/lotgd/module-scene-bundle/tree/master",
+                "source": "https://github.com/lotgd/module-scene-bundle/tree/v0.5.0",
                 "issues": "https://github.com/lotgd/module-scene-bundle/issues"
             },
-            "time": "2019-03-26T08:06:00+00:00"
+            "time": "2019-04-07T10:37:24+00:00"
         },
         {
             "name": "lotgd/module-village",
-            "version": "dev-master",
+            "version": "v0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lotgd/module-village.git",
-                "reference": "127891849ee3d8e7e617a7b46b45beb463168c99"
+                "reference": "c8c0f096a4de7bff20f4dcd1d946f809dd27a028"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lotgd/module-village/zipball/127891849ee3d8e7e617a7b46b45beb463168c99",
-                "reference": "127891849ee3d8e7e617a7b46b45beb463168c99",
+                "url": "https://api.github.com/repos/lotgd/module-village/zipball/c8c0f096a4de7bff20f4dcd1d946f809dd27a028",
+                "reference": "c8c0f096a4de7bff20f4dcd1d946f809dd27a028",
                 "shasum": ""
             },
             "require": {
-                "lotgd/core": ">=0.4.0-alpha"
+                "lotgd/core": ">=0.5.0-alpha"
             },
             "require-dev": {
                 "phpunit/dbunit": "^2.0"
@@ -6572,10 +6572,10 @@
             ],
             "description": "A basic village.",
             "support": {
-                "source": "https://github.com/lotgd/module-village/tree/master",
+                "source": "https://github.com/lotgd/module-village/tree/v0.5.0",
                 "issues": "https://github.com/lotgd/module-village/issues"
             },
-            "time": "2019-03-25T14:34:29+00:00"
+            "time": "2019-04-06T09:59:43+00:00"
         },
         {
             "name": "nikic/php-parser",
