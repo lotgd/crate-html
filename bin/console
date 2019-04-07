@@ -8,7 +8,18 @@ use Symfony\Component\Debug\Debug;
 
 set_time_limit(0);
 
-require dirname(__DIR__).'/vendor/autoload.php';
+function includeIfExists($file)
+{
+    if (file_exists($file)) {
+        return include $file;
+    }
+}
+
+// Dance to find the autoloader.
+// TOOD: change this to open up the Composer config and use $c['config']['vendor-dir'] instead of "vendor"
+includeIfExists(getcwd() . '/vendor/autoload.php') ||
+includeIfExists(__DIR__ . '/../vendor/autoload.php') ||
+includeIfExists(__DIR__ . '/../autoload.php');
 
 if (!class_exists(Application::class)) {
     throw new RuntimeException('You need to add "symfony/framework-bundle" as a Composer dependency.');
@@ -23,7 +34,9 @@ if ($input->hasParameterOption('--no-debug', true)) {
     putenv('APP_DEBUG='.$_SERVER['APP_DEBUG'] = $_ENV['APP_DEBUG'] = '0');
 }
 
-require dirname(__DIR__).'/config/bootstrap.php';
+includeIfExists(getcwd() . '/vendor/lotgd/crate-html/config/bootstrap.php') ||
+includeIfExists(__DIR__ . '/../vendor/lotgd/crate-html/config/bootstrap.php') ||
+includeIfExists(__DIR__ . '/../config/bootstrap.php');
 
 if ($_SERVER['APP_DEBUG']) {
     umask(0000);
