@@ -29,7 +29,7 @@ $input = new ArgvInput();
 if (null !== $env = $input->getParameterOption(['--env', '-e'], null, true)) {
     putenv('APP_ENV='.$_SERVER['APP_ENV'] = $_ENV['APP_ENV'] = $env);
 } else {
-    if (in_array("vendor", explode(DIRECTORY_SEPARATOR, __PATH__))) {
+    if (in_array("vendor", explode(DIRECTORY_SEPARATOR, __DIR__))) {
         $_SERVER['APP_ENV'] = "prod";
     } else {
         $_SERVER['APP_ENV'] = "env";
@@ -39,7 +39,7 @@ if (null !== $env = $input->getParameterOption(['--env', '-e'], null, true)) {
 if ($input->hasParameterOption('--no-debug', true)) {
     putenv('APP_DEBUG='.$_SERVER['APP_DEBUG'] = $_ENV['APP_DEBUG'] = '0');
 } else {
-    if (in_array("vendor", explode(DIRECTORY_SEPARATOR, __PATH__))) {
+    if (in_array("vendor", explode(DIRECTORY_SEPARATOR, __DIR__))) {
         $_SERVER['APP_DEBUG'] = false;
     } else {
         $_SERVER['APP_DEBUG'] = true;
