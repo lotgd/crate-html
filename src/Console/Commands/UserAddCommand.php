@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace LotGD\Crate\WWW\Console\Commands;
 
-use Symfony\Component\Console\ {
+use Symfony\Component\Console\{Input\InputArgument,
     Input\InputDefinition,
     Input\InputOption,
     Input\InputInterface,
-    Output\OutputInterface
-};
+    Output\OutputInterface,
+    Style\SymfonyStyle};
 use LotGD\Core\Console\Command\BaseCommand;
 use LotGD\Crate\WWW\Manager\UserManager;
 use LotGD\Crate\WWW\Model\User;
@@ -16,7 +16,7 @@ use LotGD\Crate\WWW\Model\User;
 /**
  * Command to create a password user.
  */
-class CreatePasswordUserCommand extends BaseCommand
+class UserAddCommand extends BaseCommand
 {
     /**
      * @inheritDoc
@@ -27,9 +27,9 @@ class CreatePasswordUserCommand extends BaseCommand
             ->setDescription('Adds a user.')
             ->setDefinition(
                new InputDefinition(array(
-                   new InputOption('username', 'u', InputOption::VALUE_REQUIRED),
-                   new InputOption('email', 'e', InputOption::VALUE_REQUIRED),
-                   new InputOption('password', 'p', InputOption::VALUE_REQUIRED),
+                   new InputArgument('username',InputArgument::REQUIRED, "Username"),
+                   new InputArgument('email',InputArgument::REQUIRED, "Email address (must be valid)"),
+                   new InputArgument('password',InputArgument::REQUIRED, "Password in plaintext (will get hashed in database)"),
                ))
            );
     }
@@ -39,22 +39,25 @@ class CreatePasswordUserCommand extends BaseCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $name = $input->getOption('username');
-        $email = $input->getOption('email');
-        $password = $input->getOption('password');
+        $style = new SymfonyStyle($input, $output);
+
+        $name = $input->getArgument('username');
+        $email = $input->getArgument('email');
+        $password = $input->getArgument('password');
         
         if ($name === null || $email === null || $password === null) {
-            $output->write("Name, email and password are not allowed to be null.");
+            $style->error("Name, email and password are not allowed to be null.");
+            return;
         }
-        else {
+
+        try {
             $userManager = new UserManager($this->game);
             $user = $userManager->createNewWithPassword($name, $email, $password);
-
-            $output->write(sprintf("User created with id %i", $user->getId()));
-
             $this->game->getEntityManager()->flush();
+
+            $style->success("User created with id {$user->getId()}");
+        } catch (\Exception $e) {
+            $style->error($e->getMessage());
         }
-        
-        $output->write("\n\n");
     }
 }

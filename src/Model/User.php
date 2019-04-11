@@ -46,11 +46,20 @@ class User implements SaveableInterface, UserInterface, EquatableInterface, \Ser
      * associated to an user.
      * @ManyToMany(targetEntity="LotGD\Core\Models\Character", cascade={"persist"})
      * @JoinTable("users_characters",
-     *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
+     *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")},
      *      inverseJoinColumns={@JoinColumn(name="character_id", referencedColumnName="id", unique=true)}
      * )
      */
     private $characters;
+    /**
+     * @var Collection
+     * @ManyToMany(targetEntity="LotGD\Crate\WWW\Model\Role", fetch="EAGER")
+     * @JoinTable("users_roles",
+     *     joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@JoinColumn(name="role", referencedColumnName="role")}
+     * )
+     */
+    private $user_roles;
 
     public function __construct($name = "", $email = "", $password = "")
     {
@@ -59,6 +68,7 @@ class User implements SaveableInterface, UserInterface, EquatableInterface, \Ser
         $this->email = $email;
         $this->setPassword($password);
         $this->characters = new ArrayCollection();
+        $this->user_roles = new ArrayCollection();
     }
 
     /** @see \Serializable::serialize() */
@@ -155,7 +165,7 @@ class User implements SaveableInterface, UserInterface, EquatableInterface, \Ser
 
     /**
      * Iterates through all characters.
-     * @return Collection|null
+     * @return Collection|Character[]
      */
     public function getCharacters(): Collection
     {
@@ -249,10 +259,33 @@ class User implements SaveableInterface, UserInterface, EquatableInterface, \Ser
 
     /**
      * Returns a list of roles given to the user.
-     * @return array
+     * @return array[string]
      */
     public function getRoles()
     {
-        return ["ROLE_USER"];
+        $roles = ["ROLE_USER"];
+        foreach ($this->user_roles as $role) {
+            $roles[] = $role->getRole();
+        }
+
+        return $roles;
+    }
+
+    /**
+     * Grants this user the given role.
+     * @param Role $role
+     */
+    public function grantRole(Role $role)
+    {
+        $this->user_roles->add($role);
+    }
+
+    /**
+     * Removes a role from a user.
+     * @param Role $role
+     */
+    public function removeRole(Role $role)
+    {
+        $this->user_roles->removeElement($role);
     }
 }
