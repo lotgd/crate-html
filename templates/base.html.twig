@@ -28,11 +28,13 @@
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    {% block nav_homelink %}
-                        <a class="nav-link" href="{{ path("root") }}">Home <span class="sr-only">(current)</span></a>
-                    {% endblock %}
-                </li>
+                {% block nav_homelink %}
+                    <li class="nav-item {{ (app.request.pathInfo == "/") ? "active":"" }}">
+                            <a class="nav-link" href="{{ path("root") }}">Home{{ (app.request.pathInfo == "/") ?'<span class="sr-only">(current)</span>':''}}</a>
+                    </li>
+                {% endblock %}
+                {% block navigation %}
+                {% endblock %}
             </ul>
         </div>
 
@@ -48,20 +50,22 @@
 
 
     <main role="main" id="content" class="container-fluid">
-        <div class="row">
-            <div class="col">
-                {% block left_content %}
-                {% endblock %}
+        {% block main %}
+            <div class="row">
+                <div class="col">
+                    {% block left_content %}
+                    {% endblock %}
+                </div>
+                <div class="col-md-7">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+                <div class="col">
+                    {% block right_content %}
+                    {% endblock %}
+                </div>
             </div>
-            <div class="col-md-7">
-                {% block content %}
-                {% endblock %}
-            </div>
-            <div class="col">
-                {% block right_content %}
-                {% endblock %}
-            </div>
-        </div>
+        {% endblock %}
     </main>
 
 

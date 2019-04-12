@@ -1,0 +1,72 @@
+{% extends 'ucp.html.twig' %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-md-3 pa">
+            <h6 class="nav-header text-secondary">Toolbox {{ octicon("gear") }}</h6>
+            <nav class="nav flex-column">
+                <span class="nav-item">
+                    <a class="nav-link" href="{{ path("admin_toolbox", {"type": "user"}) }}">Users</a>
+                </span>
+            </nav>
+        </div>
+
+        <div class="col-md-9">
+            {% if toolbox %}
+                <h1>{{ toolbox.title }}</h1>
+
+                {% if toolbox.error %}
+                    <div class="alert alert-danger">
+                        <strong>Error</strong>
+                        {{ toolbox.error }}
+                    </div>
+                {% endif %}
+
+                {% if toolbox.table %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                {% for column in toolbox.table.head %}
+                                    <th>{{ column }}</th>
+                                {% endfor %}
+                                {% if toolbox.table.hasOptions %}
+                                    <th></th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for row in toolbox.table.rows %}
+                            <tr>
+                                {% for col in row.cols %}
+                                    <td>
+                                        {{ col }}
+                                    </td>
+                                {% endfor %}
+                                {% if toolbox.table.hasOptions %}
+                                    <td>
+                                        {% if row.editable %}
+                                            <a href="{{ path('admin_toolbox', {"type": app.request.get("type"), "action": "edit", "id": row.id}) }}" title="Edit">
+                                                {{ octicon('pencil') }}<span class="sr-only">Edit</span>
+                                            </a>
+                                        {% endif %}
+                                        &nbsp;
+                                        {% if row.deleteable %}
+                                            <a href="{{ path('admin_toolbox', {"type": app.request.get("type"), "action": "drop", "id": row.id}) }}" title="Delete">
+                                                {{ octicon('trashcan') }}<span class="sr-only">Drop</span>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+
+
+            {% else %}
+                This is the admin area. We might show here a list of recent logs, or support requests.
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

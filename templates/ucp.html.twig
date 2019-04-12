@@ -17,7 +17,17 @@
 {% endblock %}
 
 {% block nav_homelink %}
-    <a class="nav-link" href="{{ path("ucp_root") }}">Home <span class="sr-only">(current)</span></a>
+<li class="nav-item {{ (app.request.pathInfo == path("ucp_root")) ? "active":"" }}">
+    <a class="nav-link" href="{{ path("ucp_root") }}">Home{{ (app.request.pathInfo == path("ucp_root")) ?'<span class="sr-only">(current)</span>':''}}</a>
+</li>
+{% endblock %}
+
+{% block navigation %}
+    {% if is_granted("ROLE_SUPERUSER") %}
+    <li class="nav-item {{ (app.request.pathInfo == path("admin")) ? "active":"" }}">
+        <a class="nav-link" href="{{ path("admin") }}">Administration{{ (app.request.pathInfo == path("admin")) ?'<span class="sr-only">(current)</span>':''}}</a>
+    </li>
+    {% endif %}
 {% endblock %}
 
 {% block nav_rest %}

@@ -95,6 +95,9 @@
             "ref": "70062abc2cd58794d2a90274502f81b55cd9951b"
         }
     },
+    "edwinhoksberg/octicons-php": {
+        "version": "v1.0.3"
+    },
     "egulias/email-validator": {
         "version": "2.1.7"
     },
