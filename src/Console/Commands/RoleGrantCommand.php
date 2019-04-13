@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace LotGD\Crate\WWW\Console\Commands;
 
 
+use Doctrine\DBAL\DBALException;
 use LotGD\Core\Console\Command\BaseCommand;
 use LotGD\Crate\WWW\Model\Role;
 use LotGD\Crate\WWW\Model\User;
@@ -29,7 +30,7 @@ class RoleGrantCommand extends BaseCommand
             ->setDescription('Grants role to a given user.')
             ->setDefinition(new InputDefinition([
                 new InputArgument("roleId", InputArgument::REQUIRED, "Name of the role"),
-                new InputArgument("userId", InputArgument::REQUIRED, "ID of the user")
+                new InputArgument("userId", InputArgument::REQUIRED, "ID or name of the user")
             ]));
     }
 
@@ -52,13 +53,28 @@ class RoleGrantCommand extends BaseCommand
         }
 
         /** @var User $user */
-        $user = $em->getRepository(User::class)->find($userId);
+        try {
+            $user = $em->getRepository(User::class)->find($userId);
+        } catch (\Exception $e) {
+            $user = $em->getRepository(User::class)->findOneBy(["displayName" => $userId]);
+        }
+
+
         if (!$user) {
-            $style->error("Cannot find user with id {$userId}");
-            return;
+            $user = $em->getRepository(User::class)->findOneBy(["displayName" => $userId]);
+
+            if (!$user) {
+                $style->error("Cannot find user with id or name {$userId}");
+                return;
+            }
         }
 
         try {
+            if ($user->getUserRoles()->contains($role)) {
+                $style->error("This role was already given to this user.");
+                return;
+            }
+
             $user->addRole($role);
             $this->game->getEntityManager()->flush();
 
