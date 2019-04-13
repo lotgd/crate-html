@@ -6,20 +6,12 @@ namespace LotGD\Crate\WWW\AdministrationToolboxes;
 
 
 use Doctrine\DBAL\Types\ConversionException;
-use LotGD\Core\Game;
 use LotGD\Core\Models\Character;
 use LotGD\Crate\WWW\Form\CharacterEditForm;
 use LotGD\Crate\WWW\Form\FormEntity\CharacterFormEntity;
-use LotGD\Crate\WWW\Form\FormEntity\UserFormEntity;
-use LotGD\Crate\WWW\Form\UserEditForm;
 use LotGD\Crate\WWW\Model\AdminToolbox;
-use LotGD\Crate\WWW\Model\Role;
 use LotGD\Crate\WWW\Model\Toolbox\ToolboxTable;
 use LotGD\Crate\WWW\Model\Toolbox\ToolboxTableRow;
-use LotGD\Crate\WWW\Model\User;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class CharacterToolbox extends AbstractToolbox
 {
@@ -91,7 +83,40 @@ class CharacterToolbox extends AbstractToolbox
                 $this->controller->addFlash('success', 'Character edited successfully.');
             }
 
-            $toolbox->setForm($form->createView());gi
+            $toolbox->setForm($form->createView());
+        } catch (ConversionException $e) {
+            $toolbox = new AdminToolbox("Error");
+            $toolbox->setError("The given ID is invalid.");
+        } catch (\Exception $e) {
+            $toolbox = new AdminToolbox("Error");
+            $toolbox->setError($e->getMessage());
+        }
+
+        return $toolbox;
+    }
+
+    /**
+     * @return AdminToolbox|null
+     */
+    protected function getDropToolbox(): ?AdminToolbox
+    {
+        $em = $this->game->getEntityManager();
+        $toolbox = null;
+
+        try {
+            /** @var Character $character */
+            $character = $em->getRepository(Character::class)->find($this->id);
+
+            if (!$character) {
+                throw new \Exception("Character with id {$this->id} was not found");
+            }
+
+            $toolbox = new AdminToolbox("Delete character {$character->getName()}");
+
+            $em->remove($character);
+            $em->flush();
+
+            $toolbox->setSuccessMessage("Character was successfully deleted.");
         } catch (ConversionException $e) {
             $toolbox = new AdminToolbox("Error");
             $toolbox->setError("The given ID is invalid.");

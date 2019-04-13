@@ -14,8 +14,9 @@ use Symfony\Component\Form\FormView;
 class AdminToolbox
 {
     private $title;
-    private $table;
     private $errorMessage;
+    private $successMessage;
+    private $table;
     private $form;
 
     /**
@@ -70,6 +71,22 @@ class AdminToolbox
     public function getError(): ?string
     {
         return $this->errorMessage;
+    }
+
+    /**
+     * @param string $message
+     */
+    public function setSuccessMessage(string $message)
+    {
+        $this->successMessage = $message;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSuccessMessage(): ?string
+    {
+        return $this->successMessage;
     }
 
     /**

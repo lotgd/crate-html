@@ -25,6 +25,13 @@
                     </div>
                 {% endif %}
 
+                {% if toolbox.successMessage %}
+                    <div class="alert alert-success">
+                        <strong>Success</strong>
+                        {{ toolbox.successMessage }}
+                    </div>
+                {% endif %}
+
                 {% for message in app.flashes('success') %}
                     <div class="alert alert-success">
                         {{ message }}

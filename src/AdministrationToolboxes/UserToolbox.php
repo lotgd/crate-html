@@ -6,7 +6,6 @@ namespace LotGD\Crate\WWW\AdministrationToolboxes;
 
 
 use Doctrine\DBAL\Types\ConversionException;
-use LotGD\Core\Game;
 use LotGD\Crate\WWW\Form\FormEntity\UserFormEntity;
 use LotGD\Crate\WWW\Form\UserEditForm;
 use LotGD\Crate\WWW\Model\AdminToolbox;
@@ -14,9 +13,6 @@ use LotGD\Crate\WWW\Model\Role;
 use LotGD\Crate\WWW\Model\Toolbox\ToolboxTable;
 use LotGD\Crate\WWW\Model\Toolbox\ToolboxTableRow;
 use LotGD\Crate\WWW\Model\User;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class UserToolbox extends AbstractToolbox
 {
@@ -103,6 +99,43 @@ class UserToolbox extends AbstractToolbox
             }
 
             $toolbox->setForm($form->createView());
+        } catch (ConversionException $e) {
+            $toolbox = new AdminToolbox("Error");
+            $toolbox->setError("The given ID is invalid.");
+        } catch (\Exception $e) {
+            $toolbox = new AdminToolbox("Error");
+            $toolbox->setError($e->getMessage());
+        }
+
+        return $toolbox;
+    }
+
+    /**
+     * @return AdminToolbox|null
+     */
+    protected function getDropToolbox(): ?AdminToolbox
+    {
+        $em = $this->game->getEntityManager();
+        $toolbox = null;
+
+        try {
+            /** @var User $user */
+            $user = $em->getRepository(User::class)->find($this->id);
+
+            if (!$user) {
+                throw new \Exception("User with id {$this->id} was not found");
+            }
+
+            if ($this->currentUser === $user) {
+                throw new \Exception("You cannot delete yourself.g");
+            }
+
+            $toolbox = new AdminToolbox("Delete user {$user->getDisplayName()}");
+
+            $em->remove($user);
+            $em->flush();
+
+            $toolbox->setSuccessMessage("User was successfully deleted.");
         } catch (ConversionException $e) {
             $toolbox = new AdminToolbox("Error");
             $toolbox->setError("The given ID is invalid.");

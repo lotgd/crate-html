@@ -41,6 +41,8 @@ abstract class AbstractToolbox implements ToolboxInterface
             return $this->getListToolbox();
         } elseif ($this->action === "edit") {
             return $this->getEditToolbox();
+        } elseif ($this->action === "drop") {
+            return $this->getDropToolbox();
         } else {
             return null;
         }
@@ -48,4 +50,5 @@ abstract class AbstractToolbox implements ToolboxInterface
 
     abstract protected function getListToolbox(): ?AdminToolbox;
     abstract protected function getEditToolbox(): ?AdminToolbox;
+    abstract protected function getDropToolbox(): ?AdminToolbox;
 }
