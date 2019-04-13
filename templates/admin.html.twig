@@ -2,16 +2,19 @@
 
 {% block main %}
     <div class="row">
-        <div class="col-md-3 pa">
+        <div class="col-md-2 pa">
             <h6 class="nav-header text-secondary">Toolbox {{ octicon("gear") }}</h6>
             <nav class="nav flex-column">
                 <span class="nav-item">
                     <a class="nav-link" href="{{ path("admin_toolbox", {"type": "user"}) }}">Users</a>
                 </span>
+                <span class="nav-item">
+                    <a class="nav-link" href="{{ path("admin_toolbox", {"type": "character"}) }}">Characters</a>
+                </span>
             </nav>
         </div>
 
-        <div class="col-md-9">
+        <div class="col-md-10">
             {% if toolbox %}
                 <h1>{{ toolbox.title }}</h1>
 
@@ -20,6 +23,16 @@
                         <strong>Error</strong>
                         {{ toolbox.error }}
                     </div>
+                {% endif %}
+
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                {% if toolbox.form %}
+                    {{ form(toolbox.form) }}
                 {% endif %}
 
                 {% if toolbox.table %}

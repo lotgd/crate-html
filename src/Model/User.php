@@ -272,10 +272,18 @@ class User implements SaveableInterface, UserInterface, EquatableInterface, \Ser
     }
 
     /**
+     * @return Collection|Role[]
+     */
+    public function getUserRoles(): Collection
+    {
+        return $this->user_roles;
+    }
+
+    /**
      * Grants this user the given role.
      * @param Role $role
      */
-    public function grantRole(Role $role)
+    public function addRole(Role $role)
     {
         $this->user_roles->add($role);
     }

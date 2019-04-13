@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace LotGD\Crate\WWW\Controller;
 
 
+use LotGD\Crate\WWW\AdministrationToolboxes\CharacterToolbox;
 use LotGD\Crate\WWW\AdministrationToolboxes\UserToolbox;
 use LotGD\Crate\WWW\Service\GameService;
 use LotGD\Crate\WWW\Service\Realm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -32,6 +34,7 @@ class AdministrationController extends AbstractController
         return $this->render('admin.html.twig', [
             "realm" => $realm,
             "user" => $security->getUser(),
+            "toolbox" => null,
         ]);
     }
 
@@ -53,6 +56,8 @@ class AdministrationController extends AbstractController
     ): Response {
         if ($type === "user") {
             $toolboxClass = UserToolbox::class;
+        } elseif ($type === "character") {
+            $toolboxClass = CharacterToolbox::class;
         } else {
             throw new NotFoundHttpException("This administration toolbox tool was not found.");
         }
@@ -64,5 +69,15 @@ class AdministrationController extends AbstractController
             "user" => $security->getUser(),
             "toolbox" => $toolbox,
         ]);
+    }
+
+    public function createForm(string $type, $data = null, array $options = []): FormInterface
+    {
+        return parent::createForm($type, $data, $options);
+    }
+
+    public function addFlash(string $type, string $message)
+    {
+        parent::addFlash($type, $message);
     }
 }

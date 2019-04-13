@@ -6,6 +6,7 @@ namespace LotGD\Crate\WWW\Model;
 
 
 use LotGD\Crate\WWW\Model\Toolbox\ToolboxTable;
+use Symfony\Component\Form\FormView;
 
 /**
  * AdminToolbox class allows the easy preparation of an admin page, like tables or forms.
@@ -15,6 +16,7 @@ class AdminToolbox
     private $title;
     private $table;
     private $errorMessage;
+    private $form;
 
     /**
      * AdminToolbox constructor.
@@ -68,5 +70,21 @@ class AdminToolbox
     public function getError(): ?string
     {
         return $this->errorMessage;
+    }
+
+    /**
+     * @param FormView $formView
+     */
+    public function setForm(FormView $formView)
+    {
+        $this->form = $formView;
+    }
+
+    /**
+     * @return FormView|null
+     */
+    public function getForm(): ?FormView
+    {
+        return $this->form;
     }
 }

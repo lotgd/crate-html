@@ -7,6 +7,9 @@ namespace LotGD\Crate\WWW\AdministrationToolboxes;
 
 use Doctrine\DBAL\Types\ConversionException;
 use LotGD\Core\Game;
+use LotGD\Core\Models\Character;
+use LotGD\Crate\WWW\Form\CharacterEditForm;
+use LotGD\Crate\WWW\Form\FormEntity\CharacterFormEntity;
 use LotGD\Crate\WWW\Form\FormEntity\UserFormEntity;
 use LotGD\Crate\WWW\Form\UserEditForm;
 use LotGD\Crate\WWW\Model\AdminToolbox;
@@ -18,7 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserToolbox extends AbstractToolbox
+class CharacterToolbox extends AbstractToolbox
 {
     /**
      * @return AdminToolbox
@@ -26,28 +29,26 @@ class UserToolbox extends AbstractToolbox
      */
     protected function getListToolbox(): ?AdminToolbox
     {
-        $toolbox = new AdminToolbox("List of all users");
+        $toolbox = new AdminToolbox("List of all characters");
 
         # Create table
         $table = new ToolboxTable();
-        $table->setHead("ID", "Name", "Email");
+        $table->setHead("ID", "Name", "DisplayName", "Level");
 
         # Fill with rows
-        /** @var User[] $users */
-        $users = $this->game->getEntityManager()->getRepository(User::class)->findAll();
-        foreach ($users as $user) {
+        /** @var Character[] $characters */
+        $characters = $this->game->getEntityManager()->getRepository(Character::class)->findAll();
+        foreach ($characters as $character) {
             $row = new ToolboxTableRow(
-                $user->getId()->toString(),
-                $user->getId()->toString(),
-                $user->getDisplayName(),
-                $user->getEmail()
+                $character->getId()->toString(),
+                $character->getId()->toString(),
+                $character->getName(),
+                $character->getDisplayName(),
+                $character->getLevel()
             );
 
             $row->setEditable();
-
-            if ($this->currentUser !== $user) {
-                $row->setDeleteable();
-            }
+            $row->setDeleteable();
 
             $table->addRow($row);
         }
@@ -66,43 +67,31 @@ class UserToolbox extends AbstractToolbox
         $em = $this->game->getEntityManager();
 
         try {
-            /** @var User $user */
-            $user = $em->getRepository(User::class)->find($this->id);
+            /** @var Character $character */
+            $character = $em->getRepository(Character::class)->find($this->id);
 
-            if (!$user) {
-                throw new \Exception("User with id {$this->id} was not found");
+            if (!$character) {
+                throw new \Exception("Character with id {$this->id} was not found");
             }
 
-            $toolbox = new AdminToolbox("Edit user {$user->getDisplayName()}");
+            $toolbox = new AdminToolbox("Edit character {$character->getName()}");
 
-            $userFormEntity = new UserFormEntity($user);
-            $form = $this->controller->createForm(UserEditForm::class, $userFormEntity, [
-                "roles" => $em->getRepository(Role::class)->findAll()
+            $characterFormEntity = new CharacterFormEntity($character);
+            $form = $this->controller->createForm(CharacterEditForm::class, $characterFormEntity, [
             ]);
             $form->handleRequest($this->request);
 
             if ($form->isSubmitted() and $form->isValid()) {
-                $user->setDisplayName($userFormEntity->getDisplayName());
-                $user->setEmail($userFormEntity->getEmail());
-
-                # Remove all roles from user
-                $user_roles = $user->getUserRoles();
-                foreach ($user_roles as $role) {
-                    $user->removeRole($role);
-                }
-                # Add in new roles
-                $new_roles = $userFormEntity->getRoles();
-                foreach ($new_roles as $role) {
-                    $user->addRole($role);
-                }
+                $character->setName($characterFormEntity->getName());
+                $character->setLevel($characterFormEntity->getLevel());
 
                 # Save changes.
                 $em->flush();
 
-                $this->controller->addFlash('success', 'User edited successfully.');
+                $this->controller->addFlash('success', 'Character edited successfully.');
             }
 
-            $toolbox->setForm($form->createView());
+            $toolbox->setForm($form->createView());gi
         } catch (ConversionException $e) {
             $toolbox = new AdminToolbox("Error");
             $toolbox->setError("The given ID is invalid.");

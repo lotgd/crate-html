@@ -17,7 +17,7 @@ class ToolboxTableRow
      * @param string $id
      * @param string ...$cols
      */
-    public function __construct(string $id, string ...$cols)
+    public function __construct(string $id, ...$cols)
     {
         $this->id = $id;
         $this->cols = $cols;
@@ -32,7 +32,7 @@ class ToolboxTableRow
     }
 
     /**
-     * @return array|string[]
+     * @return array|mixed[]
      */
     public function getCols(): array
     {

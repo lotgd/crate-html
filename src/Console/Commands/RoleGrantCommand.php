@@ -59,7 +59,7 @@ class RoleGrantCommand extends BaseCommand
         }
 
         try {
-            $user->grantRole($role);
+            $user->addRole($role);
             $this->game->getEntityManager()->flush();
 
             $style->success("User {$user->getDisplayName()} was successfully granted the role of {$role->getRole()}.");
