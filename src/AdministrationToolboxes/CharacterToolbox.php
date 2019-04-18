@@ -68,18 +68,15 @@ class CharacterToolbox extends AbstractToolbox
 
             $toolbox = new AdminToolbox("Edit character {$character->getName()}");
 
-            $characterFormEntity = new CharacterFormEntity($character);
+            $characterFormEntity = new CharacterFormEntity($this->game);
+            $characterFormEntity->loadFromEntity($character);
+
             $form = $this->controller->createForm(CharacterEditForm::class, $characterFormEntity, [
             ]);
             $form->handleRequest($this->request);
 
             if ($form->isSubmitted() and $form->isValid()) {
-                $character->setName($characterFormEntity->getName());
-                $character->setLevel($characterFormEntity->getLevel());
-
-                # Save changes.
-                $em->flush();
-
+                $characterFormEntity->saveToEntity($character);
                 $this->controller->addFlash('success', 'Character edited successfully.');
             }
 

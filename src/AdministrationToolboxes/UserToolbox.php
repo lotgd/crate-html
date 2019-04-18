@@ -71,30 +71,16 @@ class UserToolbox extends AbstractToolbox
 
             $toolbox = new AdminToolbox("Edit user {$user->getDisplayName()}");
 
-            $userFormEntity = new UserFormEntity($user);
+            $userFormEntity = new UserFormEntity($this->game);
+            $userFormEntity->loadFromEntity($user);
+
             $form = $this->controller->createForm(UserEditForm::class, $userFormEntity, [
                 "roles" => $em->getRepository(Role::class)->findAll()
             ]);
             $form->handleRequest($this->request);
 
             if ($form->isSubmitted() and $form->isValid()) {
-                $user->setDisplayName($userFormEntity->getDisplayName());
-                $user->setEmail($userFormEntity->getEmail());
-
-                # Remove all roles from user
-                $user_roles = $user->getUserRoles();
-                foreach ($user_roles as $role) {
-                    $user->removeRole($role);
-                }
-                # Add in new roles
-                $new_roles = $userFormEntity->getRoles();
-                foreach ($new_roles as $role) {
-                    $user->addRole($role);
-                }
-
-                # Save changes.
-                $em->flush();
-
+                $userFormEntity->saveToEntity($user);
                 $this->controller->addFlash('success', 'User edited successfully.');
             }
 

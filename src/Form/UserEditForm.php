@@ -43,7 +43,7 @@ class UserEditForm extends AbstractType
             ])
             ->add("roles", ChoiceType::class, [
                 "choices" => $options["roles"],
-                "choice_label" => function(Role $role, $key, $value) {
+                "choice_label" => function(Role $role) {
                     return $role->getRole();
                 },
                 "multiple" => true,

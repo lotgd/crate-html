@@ -12,76 +12,31 @@ use LotGD\Crate\WWW\Model\User;
 /**
  * CharacterFormEntity - represents a User entity for form management.
  */
-class CharacterFormEntity
+class CharacterFormEntity extends AbstractFormEntity
 {
-    private $name;
-    private $level;
-    private $health;
-    private $maxHealth;
-
     /**
-     * CharacterFormEntity constructor.
-     * @param User|null $character
+     * @param Character $entity
      */
-    public function __construct(?Character $character = null)
+    public function loadFromEntity($entity)
     {
-        if ($character) {
-            $this->name = $character->getName();
-            $this->level = $character->getLevel();
-            $this->health = $character->getHealth();
-            $this->maxHealth = $character->getMaxHealth();
-        }
+        $this->set("name", $entity->getName());
+        $this->set("level", $entity->getLevel());
+        $this->set("health", $entity->getHealth());
+        $this->set("maxHealth", $entity->getMaxHealth());
+
+        parent::loadFromEntity($entity);
     }
 
     /**
-     * @param string $name
+     * @param Character $entity
      */
-    public function setName(string $name)
+    public function saveToEntity($entity)
     {
-        $this->name = $name;
-    }
+        $entity->setName($this->get("name"));
+        $entity->setLevel($this->get("level"));
+        $entity->setHealth($this->get("health"));
+        $entity->setMaxHealth($this->get("maxHealth"));
 
-    /**
-     * @return string|null
-     */
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param int $level
-     */
-    public function setLevel(int $level)
-    {
-        $this->level = $level;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getLevel(): ?int
-    {
-        return $this->level;
-    }
-
-    public function setHealth(int $health)
-    {
-        $this->health = $health;
-    }
-
-    public function getHealth(): ?int
-    {
-        return $this->health;
-    }
-
-    public function setMaxHealth(int $maxHealth)
-    {
-        $this->maxHealth = $maxHealth;
-    }
-
-    public function getMaxHealth(): ?int
-    {
-        return $this->maxHealth;
+       parent::saveToEntity($entity);
     }
 }

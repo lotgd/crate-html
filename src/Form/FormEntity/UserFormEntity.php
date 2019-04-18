@@ -11,70 +11,39 @@ use LotGD\Crate\WWW\Model\User;
 /**
  * UserFormEntity - represents a User entity for form management.
  */
-class UserFormEntity
+class UserFormEntity extends AbstractFormEntity
 {
-    private $displayName;
-    private $email;
-    private $roles;
+    /**
+     * @param User $entity
+     */
+    public function loadFromEntity($entity)
+    {
+        $this->set("displayName", $entity->getDisplayName());
+        $this->set("email", $entity->getEmail());
+        $this->set("roles", $entity->getUserRoles()->toArray());
+
+        parent::loadFromEntity($entity);
+    }
 
     /**
-     * UserFormEntity constructor.
-     * @param User|null $user
+     * @param User $entity
      */
-    public function __construct(?User $user = null)
+    public function saveToEntity($entity)
     {
-        if ($user) {
-            $this->displayName = $user->getDisplayName();
-            $this->email = $user->getEmail();
-            $this->roles = $user->getUserRoles()->toArray();
+        $entity->setDisplayName($this->get("displayName"));
+        $entity->setEmail($this->get("email"));
+
+        # Remove all roles from user
+        $user_roles = $entity->getUserRoles();
+        foreach ($user_roles as $role) {
+            $entity->removeRole($role);
         }
-    }
+        # Add in new roles
+        $new_roles = $this->get("roles");
+        foreach ($new_roles as $role) {
+            $entity->addRole($role);
+        }
 
-    /**
-     * @param string $displayName
-     */
-    public function setDisplayName(string $displayName)
-    {
-        $this->displayName = $displayName;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getDisplayName(): ?string
-    {
-        return $this->displayName;
-    }
-
-    /**
-     * @param string $email
-     */
-    public function setEmail(string $email)
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    /**
-     * @return array
-     */
-    public function getRoles(): array
-    {
-        return $this->roles;
-    }
-
-    /**
-     * @param array $roles
-     */
-    public function setRoles(array $roles)
-    {
-        $this->roles = $roles;
+        parent::saveToEntity($entity);
     }
 }
