@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  * Class CharacterEditForm
  * @package LotGD\Crate\WWW\Form
  */
-class CharacterEditForm extends AbstractType
+class CharacterEditForm extends AbstractForm
 {
     /**
      * {@inheritdoc}
@@ -65,6 +65,11 @@ class CharacterEditForm extends AbstractType
                 ],
                 "required" => true
             ])
+        ;
+
+        parent::buildForm($builder, $options);
+
+        $builder
             ->add("save", SubmitType::class, [
                 "label" => "Save"
             ])

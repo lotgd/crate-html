@@ -19,8 +19,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class UserEditForm extends AbstractType
+/**
+ * Administration edit form to edit users.
+ */
+class UserEditForm extends AbstractForm
 {
+    /** {@inheritdoc} */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -49,19 +53,25 @@ class UserEditForm extends AbstractType
                 "multiple" => true,
                 "expanded" => true,
             ])
+        ;
+
+        parent::buildForm($builder, $options);
+
+        $builder
             ->add("save", SubmitType::class, [
                 "label" => "Save"
             ])
         ;
     }
 
+    /** {@inheritdoc} */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             "data_class" => UserFormEntity::class
         ]);
         $resolver->setRequired([
-            "roles"
+            "roles",
         ]);
     }
 }
