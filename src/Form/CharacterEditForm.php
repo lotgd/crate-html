@@ -49,6 +49,22 @@ class CharacterEditForm extends AbstractType
                 ],
                 "required" => true
             ])
+            ->add("health", IntegerType::class, [
+                "empty_data" => "",
+                "label" => "Health",
+                "constraints" => [
+                    new NotBlank()
+                ],
+                "required" => true
+            ])
+            ->add("maxHealth", IntegerType::class, [
+                "empty_data" => "",
+                "label" => "Maximum Health",
+                "constraints" => [
+                    new NotBlank()
+                ],
+                "required" => true
+            ])
             ->add("save", SubmitType::class, [
                 "label" => "Save"
             ])

@@ -16,6 +16,8 @@ class CharacterFormEntity
 {
     private $name;
     private $level;
+    private $health;
+    private $maxHealth;
 
     /**
      * CharacterFormEntity constructor.
@@ -26,11 +28,13 @@ class CharacterFormEntity
         if ($character) {
             $this->name = $character->getName();
             $this->level = $character->getLevel();
+            $this->health = $character->getHealth();
+            $this->maxHealth = $character->getMaxHealth();
         }
     }
 
     /**
-     * @param string $email
+     * @param string $name
      */
     public function setName(string $name)
     {
@@ -59,5 +63,25 @@ class CharacterFormEntity
     public function getLevel(): ?int
     {
         return $this->level;
+    }
+
+    public function setHealth(int $health)
+    {
+        $this->health = $health;
+    }
+
+    public function getHealth(): ?int
+    {
+        return $this->health;
+    }
+
+    public function setMaxHealth(int $maxHealth)
+    {
+        $this->maxHealth = $maxHealth;
+    }
+
+    public function getMaxHealth(): ?int
+    {
+        return $this->maxHealth;
     }
 }
