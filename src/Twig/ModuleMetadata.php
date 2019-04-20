@@ -2,11 +2,15 @@
 declare(strict_types=1);
 
 
-namespace LotGD\Crate\WWW\Model;
+namespace LotGD\Crate\WWW\Twig;
 
 
 use Composer\Package\CompletePackageInterface;
 
+/**
+ * Class to abstract the module metadata for twig.
+ * @package LotGD\Crate\WWW\Model
+ */
 class ModuleMetadata
 {
     private $package;

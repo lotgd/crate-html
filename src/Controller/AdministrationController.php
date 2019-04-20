@@ -7,6 +7,7 @@ namespace LotGD\Crate\WWW\Controller;
 
 use LotGD\Crate\WWW\AdministrationToolboxes\CharacterToolbox;
 use LotGD\Crate\WWW\AdministrationToolboxes\UserToolbox;
+use LotGD\Crate\WWW\Model\AdminToolboxPage;
 use LotGD\Crate\WWW\Service\GameService;
 use LotGD\Crate\WWW\Service\Realm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,9 +40,13 @@ class AdministrationController extends AbstractController
     }
 
     /**
+     * @param string $type
+     * @param string|null $action
+     * @param string|null $id
      * @param GameService $gameService
      * @param Realm $realm
      * @param Security $security
+     * @param Request $request
      * @return Response
      * @Route("/admin/toolbox/{type}/{action}/{id}", name="admin_toolbox", defaults={"action":null, "id":null})
      */
@@ -54,13 +59,16 @@ class AdministrationController extends AbstractController
         Security $security,
         Request $request
     ): Response {
-        if ($type === "user") {
-            $toolboxClass = UserToolbox::class;
-        } elseif ($type === "character") {
-            $toolboxClass = CharacterToolbox::class;
-        } else {
-            throw new NotFoundHttpException("This administration toolbox tool was not found.");
+        $em = $gameService->getEntityManager();
+
+        /** @var AdminToolboxPage $page */
+        $page = $em->getRepository(AdminToolboxPage::class)->find($type);
+
+        if (!$page) {
+            throw new NotFoundHttpException("The administration toolbox {$page} has not been found.");
         }
+
+        $toolboxClass = $page->getClassName();
 
         $toolbox = (new $toolboxClass($action, $id, $this, $gameService->getGame(), $security->getUser(), $request))->getToolbox();
 

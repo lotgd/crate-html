@@ -24,7 +24,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class User
- * @package LotGD\Crate\WWW\Model
  * @Entity
  * @Table(name="users")
  */

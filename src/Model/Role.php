@@ -7,6 +7,7 @@ namespace LotGD\Crate\WWW\Model;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\Table;
 use LotGD\Core\Tools\Model\Deletor;
 use LotGD\Core\Tools\Model\Saveable;
 
@@ -27,6 +28,12 @@ class Role
     /** @Column(type="datetime") */
     private $createdAt;
 
+    /**
+     * Role constructor.
+     * @param string $role
+     * @param string|null $module
+     * @throws \Exception
+     */
     public function __construct(string $role, string $module = null)
     {
         $this->role = $role;
@@ -34,17 +41,28 @@ class Role
         $this->createdAt = new \DateTime();
     }
 
-    public function getRole()
+    /**
+     * Returns the role id / name
+     * @return string
+     */
+    public function getRole(): string
     {
         return $this->role;
     }
 
-    public function getModule()
+    /**
+     * Returns the module
+     * @return string|null
+     */
+    public function getModule(): string
     {
         return $this->module;
     }
 
-    public function getCreatedAt()
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }

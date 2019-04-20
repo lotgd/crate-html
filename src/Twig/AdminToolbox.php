@@ -2,10 +2,10 @@
 declare(strict_types=1);
 
 
-namespace LotGD\Crate\WWW\Model;
+namespace LotGD\Crate\WWW\Twig;
 
 
-use LotGD\Crate\WWW\Model\Toolbox\ToolboxTable;
+use LotGD\Crate\WWW\Twig\Toolbox\ToolboxTable;
 use Symfony\Component\Form\FormView;
 
 /**

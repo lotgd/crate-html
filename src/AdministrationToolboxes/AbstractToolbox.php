@@ -6,8 +6,8 @@ namespace LotGD\Crate\WWW\AdministrationToolboxes;
 
 
 use LotGD\Core\Game;
-use LotGD\Crate\WWW\Model\AdminToolbox;
 use LotGD\Crate\WWW\Model\User;
+use LotGD\Crate\WWW\Twig\AdminToolbox;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 

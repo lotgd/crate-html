@@ -7,7 +7,7 @@ namespace LotGD\Crate\WWW\Service;
 
 use LotGD\Core\Exceptions\LibraryDoesNotExistException;
 use LotGD\Crate\WWW\Service\GameService;
-use LotGD\Crate\WWW\Model\ModuleMetadata;
+use LotGD\Crate\WWW\Twig\ModuleMetadata;
 
 class Realm
 {

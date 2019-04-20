@@ -8,11 +8,11 @@ namespace LotGD\Crate\WWW\AdministrationToolboxes;
 use Doctrine\DBAL\Types\ConversionException;
 use LotGD\Crate\WWW\Form\FormEntity\UserFormEntity;
 use LotGD\Crate\WWW\Form\UserEditForm;
-use LotGD\Crate\WWW\Model\AdminToolbox;
 use LotGD\Crate\WWW\Model\Role;
-use LotGD\Crate\WWW\Model\Toolbox\ToolboxTable;
-use LotGD\Crate\WWW\Model\Toolbox\ToolboxTableRow;
 use LotGD\Crate\WWW\Model\User;
+use LotGD\Crate\WWW\Twig\AdminToolbox;
+use LotGD\Crate\WWW\Twig\Toolbox\ToolboxTable;
+use LotGD\Crate\WWW\Twig\Toolbox\ToolboxTableRow;
 
 class UserToolbox extends AbstractToolbox
 {

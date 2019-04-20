@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace LotGD\Crate\WWW\Model\Toolbox;
+namespace LotGD\Crate\WWW\Twig\Toolbox;
 
 
 class ToolboxTableRow

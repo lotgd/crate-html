@@ -9,9 +9,9 @@ use Doctrine\DBAL\Types\ConversionException;
 use LotGD\Core\Models\Character;
 use LotGD\Crate\WWW\Form\CharacterEditForm;
 use LotGD\Crate\WWW\Form\FormEntity\CharacterFormEntity;
-use LotGD\Crate\WWW\Model\AdminToolbox;
-use LotGD\Crate\WWW\Model\Toolbox\ToolboxTable;
-use LotGD\Crate\WWW\Model\Toolbox\ToolboxTableRow;
+use LotGD\Crate\WWW\Twig\AdminToolbox;
+use LotGD\Crate\WWW\Twig\Toolbox\ToolboxTable;
+use LotGD\Crate\WWW\Twig\Toolbox\ToolboxTableRow;
 
 class CharacterToolbox extends AbstractToolbox
 {

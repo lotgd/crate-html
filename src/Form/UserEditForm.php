@@ -70,6 +70,7 @@ class UserEditForm extends AbstractForm
         $resolver->setDefaults([
             "data_class" => UserFormEntity::class
         ]);
+
         $resolver->setRequired([
             "roles",
         ]);
