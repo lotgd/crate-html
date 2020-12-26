@@ -33,9 +33,9 @@ class UserProvider implements UserProviderInterface
         return $user;
     }
 
-    public function supportsClass($class)
+    public function supportsClass($class): bool
     {
-        $class = User::class;
+        return ($class === User::class);
     }
 
     public function refreshUser(UserInterface $user)

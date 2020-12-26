@@ -60,10 +60,10 @@ class User implements SaveableInterface, UserInterface, EquatableInterface, \Ser
      */
     private $user_roles;
 
-    public function __construct($name = "", $email = "", $password = "")
+    public function __construct(string $displayName = "", string $email = "", string $password = "")
     {
         $this->id = Uuid::uuid4();
-        $this->displayName = $name;
+        $this->displayName = $displayName;
         $this->email = $email;
         $this->setPassword($password);
         $this->characters = new ArrayCollection();
@@ -71,19 +71,22 @@ class User implements SaveableInterface, UserInterface, EquatableInterface, \Ser
     }
 
     /** @see \Serializable::serialize() */
-    public function serialize()
+    public function serialize(): ?string
     {
         return serialize([$this->id, $this->email, $this->passwordHash]);
     }
 
-    /** @see \Serializable::unserialize() */
+    /**
+     * @param $serialized
+     * @see \Serializable::unserialize()
+     */
     public function unserialize($serialized)
     {
-        [$this->id, $this->email, $this->passwordHash] = unserialize($serialized, ['allowed_classes' => [Uuid::class]]);
+        [$this->id, $this->email, $this->passwordHash] = unserialize($serialized);
     }
 
     /** @see EquatableInterface::isEqualTo() */
-    public function isEqualTo(UserInterface $user)
+    public function isEqualTo(UserInterface $user): bool
     {
         if ($user->getId()->toString() === $this->getId()->toString() and
             $user->getUsername() === $this->getUsername() and
@@ -114,7 +117,7 @@ class User implements SaveableInterface, UserInterface, EquatableInterface, \Ser
     /**
      * @param string $name
      */
-    public function setDisplayName(string $name)
+    public function setDisplayName(string $name): void
     {
         $this->displayName = $name;
     }
@@ -130,7 +133,7 @@ class User implements SaveableInterface, UserInterface, EquatableInterface, \Ser
     /**
      * @param string $email
      */
-    public function setEmail(string $email)
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }
@@ -147,7 +150,7 @@ class User implements SaveableInterface, UserInterface, EquatableInterface, \Ser
      * Sets a given plaintext password and stores it hash in the database.
      * @param string $password
      */
-    public function setPassword(string $password)
+    public function setPassword(string $password): void
     {
         $this->passwordHash = password_hash($password, PASSWORD_DEFAULT);
     }
@@ -240,7 +243,7 @@ class User implements SaveableInterface, UserInterface, EquatableInterface, \Ser
      * Symfony "User name" identifier. Here, is is the email address
      * @return string
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->email;
     }
@@ -258,9 +261,9 @@ class User implements SaveableInterface, UserInterface, EquatableInterface, \Ser
 
     /**
      * Returns a list of roles given to the user.
-     * @return array[string]
+     * @return string[]
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         $roles = ["ROLE_USER"];
         foreach ($this->user_roles as $role) {
@@ -282,7 +285,7 @@ class User implements SaveableInterface, UserInterface, EquatableInterface, \Ser
      * Grants this user the given role.
      * @param Role $role
      */
-    public function addRole(Role $role)
+    public function addRole(Role $role): void
     {
         $this->user_roles->add($role);
     }
@@ -291,8 +294,13 @@ class User implements SaveableInterface, UserInterface, EquatableInterface, \Ser
      * Removes a role from a user.
      * @param Role $role
      */
-    public function removeRole(Role $role)
+    public function removeRole(Role $role): void
     {
         $this->user_roles->removeElement($role);
+    }
+
+    public function equals(UserInterface $user): bool
+    {
+        // TODO: Implement equals() method.
     }
 }

@@ -10,32 +10,35 @@
     "type": "lotgd-crate",
     "license": "AGPL-3.0",
     "require": {
-        "php": "^7.1.3",
+        "php": "^8.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "edwinhoksberg/octicons-php": "^1.0",
-        "lotgd/core": "^0.5.0",
-        "sensio/framework-extra-bundle": "^5.2",
-        "symfony/asset": "4.2.*",
-        "symfony/console": "4.2.*",
-        "symfony/dotenv": "4.2.*",
-        "symfony/expression-language": "4.2.*",
-        "symfony/flex": "^1.1",
-        "symfony/form": "4.2.*",
-        "symfony/framework-bundle": "4.2.*",
-        "symfony/monolog-bundle": "^3.1",
+        "lotgd/core": "0.6.0",
+        "lotgd/module-crate-html-helper": "*",
+        "sensio/framework-extra-bundle": "*",
+        "symfony/asset": "*",
+        "symfony/console": "*",
+        "symfony/dotenv": "*",
+        "symfony/expression-language": "*",
+        "symfony/flex": "*",
+        "symfony/form": "*",
+        "symfony/framework-bundle": "*",
+        "symfony/monolog-bundle": "*",
         "symfony/orm-pack": "*",
-        "symfony/process": "4.2.*",
-        "symfony/security": "4.2.*",
-        "symfony/security-bundle": "4.2.*",
+        "symfony/process": "*",
+        "symfony/security": "*",
+        "symfony/security-bundle": "*",
         "symfony/serializer-pack": "*",
-        "symfony/swiftmailer-bundle": "^3.1",
-        "symfony/translation": "4.2.*",
-        "symfony/twig-bundle": "4.2.*",
-        "symfony/validator": "4.2.*",
-        "symfony/web-link": "4.2.*",
-        "symfony/yaml": "4.2.*",
-        "twig/extensions": "^1.5"
+        "symfony/swiftmailer-bundle": "*",
+        "symfony/symfony": "^5.2",
+        "symfony/translation": "*",
+        "symfony/twig-bundle": "*",
+        "symfony/twig-pack": "^1.0",
+        "symfony/validator": "*",
+        "symfony/web-link": "*",
+        "symfony/yaml": "*",
+        "twig/extensions": "*"
     },
     "require-dev": {
         "lotgd/module-forest": ">0.4",
@@ -45,11 +48,12 @@
         "lotgd/module-res-fight": ">0.4",
         "lotgd/module-scene-bundle": ">0.4",
         "lotgd/module-village": ">0.4",
+
         "symfony/debug-pack": "*",
-        "symfony/maker-bundle": "^1.0",
+        "symfony/maker-bundle": "*",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "*",
-        "symfony/web-server-bundle": "4.2.*"
+        "symfony/web-server-bundle": "*"
     },
     "bin": [
         "bin/console"
@@ -90,16 +94,16 @@
             "@auto-scripts"
         ]
     },
-    "conflict": {
-        "symfony/symfony": "*"
-    },
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "4.2.*"
+            "require": "*"
         }
     },
     "repositories": [
+        {"type": "path", "url": "../core"},
+        {"type": "path", "url": "../module-new-day"},
+        {"type": "path", "url": "../module-crate-html-helper"},
         {
             "type": "composer",
             "url": "https://raw.githubusercontent.com/lotgd/packages/master/build/packages.json"

@@ -84,7 +84,7 @@ class AdministrationController extends AbstractController
         return parent::createForm($type, $data, $options);
     }
 
-    public function addFlash(string $type, string $message)
+    public function addFlash(string $type, $message): void
     {
         parent::addFlash($type, $message);
     }

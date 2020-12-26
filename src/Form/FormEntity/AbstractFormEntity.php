@@ -11,7 +11,7 @@ use LotGD\Core\Game;
 /**
  * Class AbstractFormEntity
  */
-abstract class AbstractFormEntity
+abstract class AbstractFormEntity implements \ArrayAccess
 {
     private $game;
     private $variables = [];
@@ -23,6 +23,32 @@ abstract class AbstractFormEntity
     public function __construct(Game $game)
     {
         $this->game = $game;
+    }
+
+    public function offsetExists($offset)
+    {
+        return isset($this->variables[$offset]);
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->$offset;
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        $this->$offset = $value;
+    }
+
+    public function offsetUnset($offset) {}
+
+    /**
+     * Returns the game.
+     * @return Game
+     */
+    protected function getGame(): Game
+    {
+        return $this->game;
     }
 
     /**
