@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace LotGD\Crate\WWW\Console\Commands;
 
 use LotGD\Crate\WWW\Model\User;
-use Symfony\Component\Console\{Input\InputDefinition,
+use Symfony\Component\Console\{Command\Command,
+    Input\InputDefinition,
     Input\InputOption,
     Input\InputInterface,
     Output\OutputInterface,
@@ -30,7 +31,7 @@ class UserListCommand extends BaseCommand
     /**
      * @inheritDoc
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $style = new SymfonyStyle($input, $output);
 
@@ -49,5 +50,7 @@ class UserListCommand extends BaseCommand
         }
 
         $style->table($table_head, $table_rows);
+
+        return Command::SUCCESS;
     }
 }

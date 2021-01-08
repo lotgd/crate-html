@@ -140,6 +140,9 @@
     "lotgd/core": {
         "version": "dev-feature/symfony4"
     },
+    "lotgd/module-crate-html-helper": {
+        "version": "dev-master"
+    },
     "lotgd/module-forest": {
         "version": "v0.4.0"
     },
@@ -433,6 +436,9 @@
             "version": "4.2",
             "ref": "5374e24d508ba8fd6ba9eb15170255fdb778316a"
         }
+    },
+    "symfony/security": {
+        "version": "2.0.6"
     },
     "symfony/security-bundle": {
         "version": "3.3",

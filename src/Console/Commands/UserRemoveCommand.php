@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace LotGD\Crate\WWW\Console\Commands;
 
 use LotGD\Crate\WWW\Model\User;
-use Symfony\Component\Console\{Input\InputArgument,
+use Symfony\Component\Console\{Command\Command,
+    Input\InputArgument,
     Input\InputDefinition,
     Input\InputOption,
     Input\InputInterface,
@@ -34,7 +35,7 @@ class UserRemoveCommand extends BaseCommand
     /**
      * @inheritDoc
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $style = new SymfonyStyle($input, $output);
 
@@ -45,7 +46,8 @@ class UserRemoveCommand extends BaseCommand
 
         if (!$user) {
             $style->error("No user found with id {$user_id}.");
-            return;
+
+            return Command::FAILURE;
         }
 
         // Remove user.
@@ -54,8 +56,12 @@ class UserRemoveCommand extends BaseCommand
             $this->game->getEntityManager()->remove($user);
             $this->game->getEntityManager()->flush();
             $style->success("User with id {$user_id} successfully removed ($user_name).");
+
+            return Command::SUCCESS;
         } catch (\Exception $e) {
             $style->error($e->getMessage());
+
+            return Command::FAILURE;
         }
     }
 }

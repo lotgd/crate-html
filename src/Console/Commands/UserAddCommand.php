@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace LotGD\Crate\WWW\Console\Commands;
 
-use Symfony\Component\Console\{Input\InputArgument,
+use Symfony\Component\Console\{Command\Command,
+    Input\InputArgument,
     Input\InputDefinition,
     Input\InputOption,
     Input\InputInterface,
@@ -37,7 +38,7 @@ class UserAddCommand extends BaseCommand
     /**
      * @inheritDoc
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $style = new SymfonyStyle($input, $output);
 
@@ -47,7 +48,8 @@ class UserAddCommand extends BaseCommand
         
         if ($name === null || $email === null || $password === null) {
             $style->error("Name, email and password are not allowed to be null.");
-            return;
+
+            return Command::FAILURE;
         }
 
         try {
@@ -56,8 +58,12 @@ class UserAddCommand extends BaseCommand
             $this->game->getEntityManager()->flush();
 
             $style->success("User created with id {$user->getId()}");
+
+            return Command::SUCCESS;
         } catch (\Exception $e) {
             $style->error($e->getMessage());
+
+            return Command::FAILURE;
         }
     }
 }

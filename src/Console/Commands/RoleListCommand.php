@@ -7,6 +7,7 @@ namespace LotGD\Crate\WWW\Console\Commands;
 
 use LotGD\Core\Console\Command\BaseCommand;
 use LotGD\Crate\WWW\Model\Role;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -48,5 +49,7 @@ class RoleListCommand extends BaseCommand
         }
 
         $style->table($table_head, $table_rows);
+
+        return Command::SUCCESS;
     }
 }

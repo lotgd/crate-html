@@ -92,8 +92,7 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
-    },
+        ]    },
     "extra": {
         "symfony": {
             "allow-contrib": false,
@@ -102,7 +101,9 @@
     },
     "repositories": [
         {"type": "path", "url": "../core"},
+        {"type": "path", "url": "../module-village"},
         {"type": "path", "url": "../module-new-day"},
+        {"type": "path", "url": "../module-gender"},
         {"type": "path", "url": "../module-crate-html-helper"},
         {
             "type": "composer",

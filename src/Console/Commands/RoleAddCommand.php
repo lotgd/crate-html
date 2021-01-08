@@ -7,6 +7,7 @@ namespace LotGD\Crate\WWW\Console\Commands;
 
 use LotGD\Core\Console\Command\BaseCommand;
 use LotGD\Crate\WWW\Model\Role;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
@@ -34,7 +35,7 @@ class RoleAddCommand extends BaseCommand
     /**
      * @inheritDoc
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $style = new SymfonyStyle($input, $output);
 
@@ -46,8 +47,12 @@ class RoleAddCommand extends BaseCommand
             $this->game->getEntityManager()->persist($role);
             $this->game->getEntityManager()->flush();
             $style->success("Role {$roleId} was added successfully.");
+
+            return Command::SUCCESS;
         } catch (\Exception $e) {
             $style->error($e->getMessage());
+
+            return Command::FAILURE;
         }
     }
 }

@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace LotGD\Crate\WWW\Console\Commands;
 
 use LotGD\Crate\WWW\Model\User;
-use Symfony\Component\Console\{Input\InputArgument,
+use Symfony\Component\Console\{Command\Command,
+    Input\InputArgument,
     Input\InputDefinition,
     Input\InputOption,
     Input\InputInterface,
@@ -34,7 +35,7 @@ class UserDescribeCommand extends BaseCommand
     /**
      * @inheritDoc
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $style = new SymfonyStyle($input, $output);
 
@@ -45,7 +46,8 @@ class UserDescribeCommand extends BaseCommand
 
         if (!$user) {
             $style->error("No user found with id {$user_id}.");
-            return;
+
+            return Command::FAILURE;
         }
 
         $style->title("About user {$user->getDisplayName()}");
@@ -60,9 +62,12 @@ class UserDescribeCommand extends BaseCommand
         foreach ($user->getCharacters() as $character) {
             $characters[] = "{$character->getName()} ({$character->getId()}), level {$character->getLevel()}";
         }
+
         $style->listing($characters);
 
         $style->section("Roles");
         $style->listing($user->getRoles());
+
+        return Command::SUCCESS;
     }
 }

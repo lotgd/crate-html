@@ -9,6 +9,7 @@ use Doctrine\DBAL\DBALException;
 use LotGD\Core\Console\Command\BaseCommand;
 use LotGD\Crate\WWW\Model\Role;
 use LotGD\Crate\WWW\Model\User;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
@@ -37,7 +38,7 @@ class RoleGrantCommand extends BaseCommand
     /**
      * @inheritDoc
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $style = new SymfonyStyle($input, $output);
 
@@ -49,7 +50,8 @@ class RoleGrantCommand extends BaseCommand
         $role = $em->getRepository(Role::class)->find($roleId);
         if (!$role) {
             $style->error("Cannot find role with id {$roleId}");
-            return;
+
+            return Command::FAILURE;
         }
 
         /** @var User $user */
@@ -65,22 +67,28 @@ class RoleGrantCommand extends BaseCommand
 
             if (!$user) {
                 $style->error("Cannot find user with id or name {$userId}");
-                return;
+
+                return Command::FAILURE;
             }
         }
 
         try {
             if ($user->getUserRoles()->contains($role)) {
                 $style->error("This role was already given to this user.");
-                return;
+
+                return Command::FAILURE;
             }
 
             $user->addRole($role);
             $this->game->getEntityManager()->flush();
 
             $style->success("User {$user->getDisplayName()} was successfully granted the role of {$role->getRole()}.");
+
+            return Command::SUCCESS;
         } catch (\Exception $e) {
             $style->error($e->getMessage());
+
+            return Command::FAILURE;
         }
     }
 }
