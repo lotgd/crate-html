@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace LotGD\Crate\WWW\Console\Commands;
+namespace LotGD\Crate\WWW\Console\Commands\User;
 
 use Symfony\Component\Console\{Command\Command,
     Input\InputArgument,
@@ -17,7 +17,7 @@ use LotGD\Crate\WWW\Model\User;
 /**
  * Command to create a password user.
  */
-class UserAddCommand extends BaseCommand
+class AddCommand extends BaseCommand
 {
     /**
      * @inheritDoc

@@ -1,8 +1,7 @@
 <?php
 declare(strict_types=1);
 
-
-namespace LotGD\Crate\WWW\Console\Commands;
+namespace LotGD\Crate\WWW\Console\Commands\User;
 
 use LotGD\Crate\WWW\Model\User;
 use Symfony\Component\Console\{Command\Command,
@@ -17,7 +16,7 @@ use LotGD\Core\Console\Command\BaseCommand;
  * Lists all users.
  * @package LotGD\Crate\WWW\Console\Commands
  */
-class UserListCommand extends BaseCommand
+class ListCommand extends BaseCommand
 {
     /**
      * @inheritDoc
