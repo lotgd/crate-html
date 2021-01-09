@@ -1,9 +1,7 @@
 <?php
 declare(strict_types=1);
 
-
 namespace LotGD\Crate\WWW\Form\FormEntity;
-
 
 use Doctrine\Common\Collections\Collection;
 use LotGD\Core\Models\Character;
