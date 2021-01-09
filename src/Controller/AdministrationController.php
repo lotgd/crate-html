@@ -30,10 +30,16 @@ class AdministrationController extends AbstractController
         Realm $realm,
         Security $security
     ): Response {
+        $em = $gameService->getEntityManager();
+
+        // Get all registered toolboxes
+        $toolboxes = $em->getRepository(AdminToolboxPage::class)->findAll();
+
         return $this->render('admin.html.twig', [
             "realm" => $realm,
             "user" => $security->getUser(),
             "toolbox" => null,
+            "toolboxes" => $toolboxes,
         ]);
     }
 
@@ -59,6 +65,9 @@ class AdministrationController extends AbstractController
     ): Response {
         $em = $gameService->getEntityManager();
 
+        // Get all registered toolboxes
+        $toolboxes = $em->getRepository(AdminToolboxPage::class)->findAll();
+
         /** @var AdminToolboxPage $page */
         $page = $em->getRepository(AdminToolboxPage::class)->find($type);
 
@@ -74,6 +83,7 @@ class AdministrationController extends AbstractController
             "realm" => $realm,
             "user" => $security->getUser(),
             "toolbox" => $toolbox,
+            "toolboxes" => $toolboxes,
         ]);
     }
 

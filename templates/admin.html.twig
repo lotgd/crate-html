@@ -5,12 +5,11 @@
         <div class="col-md-2 pa">
             <h6 class="nav-header text-secondary">Toolbox {{ octicon("gear") }}</h6>
             <nav class="nav flex-column">
-                <span class="nav-item">
-                    <a class="nav-link" href="{{ path("admin_toolbox", {"type": "users"}) }}">Users</a>
-                </span>
-                <span class="nav-item">
-                    <a class="nav-link" href="{{ path("admin_toolbox", {"type": "characters"}) }}">Characters</a>
-                </span>
+                {% for box in toolboxes %}
+                    <span class="nav-item">
+                        <a class="nav-link" href="{{ path("admin_toolbox", {"type": box.id}) }}">{{ box.name }}</a>
+                    </span>
+                {% endfor %}
             </nav>
         </div>
 
