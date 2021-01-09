@@ -1,9 +1,7 @@
 <?php
 declare(strict_types=1);
 
-
 namespace LotGD\Crate\WWW\Controller;
-
 
 use LotGD\Crate\WWW\AdministrationToolboxes\CharacterToolbox;
 use LotGD\Crate\WWW\AdministrationToolboxes\UserToolbox;
@@ -25,8 +23,8 @@ class AdministrationController extends AbstractController
      * @param Realm $realm
      * @param Security $security
      * @return Response
-     * @Route("/admin", name="admin")
      */
+    #[Route("/admin", name: "admin")]
     public function root(
         GameService $gameService,
         Realm $realm,
@@ -48,8 +46,8 @@ class AdministrationController extends AbstractController
      * @param Security $security
      * @param Request $request
      * @return Response
-     * @Route("/admin/toolbox/{type}/{action}/{id}", name="admin_toolbox", defaults={"action":null, "id":null})
      */
+    #[Route("/admin/toolbox/{type}/{action}/{id}", name: "admin_toolbox", defaults: ["action"=>null, "id"=>null])]
     public function toolbox(
         string $type,
         ?string $action,

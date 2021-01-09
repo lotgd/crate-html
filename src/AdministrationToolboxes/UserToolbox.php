@@ -1,9 +1,7 @@
 <?php
 declare(strict_types=1);
 
-
 namespace LotGD\Crate\WWW\AdministrationToolboxes;
-
 
 use Doctrine\DBAL\Types\ConversionException;
 use LotGD\Crate\WWW\Form\FormEntity\UserFormEntity;

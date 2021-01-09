@@ -1,7 +1,6 @@
 <?php
 declare(strict_types=1);
 
-
 namespace LotGD\Crate\WWW\Controller;
 
 use LotGD\Core\Models\Character;
@@ -17,11 +16,11 @@ use Symfony\Component\Security\Core\Security;
 class UserPanelController extends AbstractController
 {
     /**
-     * @Route("/ucp", name="ucp_root")
      * @param GameService $gameService
      * @param Security $security
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
+    #[Route("/ucp", name: "ucp_root")]
     public function root(
         GameService $gameService,
         Realm $realm,
@@ -34,11 +33,11 @@ class UserPanelController extends AbstractController
     }
 
     /**
-     * @Route("ucp/character/add", name="ucp_character_add")
      * @param GameService $gameService
      * @param Security $security
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
+    #[Route("ucp/character/add", name: "ucp_character_add")]
     public function addCharacter(
         GameService $gameService,
         Realm $realm,
