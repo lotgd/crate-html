@@ -1,9 +1,7 @@
 <?php
 declare(strict_types=1);
 
-
-namespace LotGD\Crate\WWW\Console\Commands;
-
+namespace LotGD\Crate\WWW\Console\Commands\Role;
 
 use LotGD\Core\Console\Command\BaseCommand;
 use LotGD\Crate\WWW\Model\Role;
@@ -18,7 +16,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  * Command to add a role.
  * @package LotGD\Crate\WWW\Console\Commands
  */
-class RoleAddCommand extends BaseCommand
+class AddCommand extends BaseCommand
 {
     /**
      * @inheritDoc

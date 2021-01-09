@@ -1,9 +1,7 @@
 <?php
 declare(strict_types=1);
 
-
-namespace LotGD\Crate\WWW\Console\Commands;
-
+namespace LotGD\Crate\WWW\Console\Commands\Role;
 
 use Doctrine\DBAL\DBALException;
 use LotGD\Core\Console\Command\BaseCommand;
@@ -20,7 +18,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  * Command to add a role to a user.
  * @package LotGD\Crate\WWW\Console\Commands
  */
-class RoleGrantCommand extends BaseCommand
+class GrantCommand extends BaseCommand
 {
     /**
      * @inheritDoc
