@@ -7,3 +7,7 @@ daenerysCommands:
     - "Console\\Commands\\RoleAddCommand"
     - "Console\\Commands\\RoleListCommand"
     - "Console\\Commands\\RoleGrantCommand"
+    - "Console\\Commands\\AdminToolbox\\AddCommand"
+    - "Console\\Commands\\AdminToolbox\\EditCommand"
+    - "Console\\Commands\\AdminToolbox\\ListCommand"
+    - "Console\\Commands\\AdminToolbox\\RemoveCommand"

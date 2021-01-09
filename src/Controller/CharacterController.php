@@ -1,9 +1,7 @@
 <?php
 declare(strict_types=1);
 
-
 namespace LotGD\Crate\WWW\Controller;
-
 
 use LotGD\Core\Exceptions\ActionNotFoundException;
 use LotGD\Core\Models\CharacterStats;
@@ -25,8 +23,8 @@ class CharacterController extends AbstractController
      * @param Realm $realm
      * @param Security $security
      * @return Response
-     * @Route("/scene/{charId}/{action}", name="scene_view", defaults={"action":null})
      */
+    #[Route("/scene/{charId}/{action}", name: "scene_view", defaults: ["action"=>null])]
     public function sceneRender(
         $charId, $action,
         GameService $gameService,

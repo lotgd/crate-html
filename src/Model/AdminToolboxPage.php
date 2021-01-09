@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Class Role
@@ -22,9 +23,9 @@ use Doctrine\ORM\Mapping\JoinColumn;
 class AdminToolboxPage
 {
     /** @Id @Column(type="string", length=255, unique=True) */
-    private $id;
+    private string $id;
     /** @Column(type="string", length=255) */
-    private $className;
+    private string $className;
     /**
      * @var Collection
      * @ManyToMany(targetEntity="LotGD\Crate\WWW\Model\Role", fetch="EAGER")
@@ -33,18 +34,27 @@ class AdminToolboxPage
      *     inverseJoinColumns={@JoinColumn(name="role", referencedColumnName="role")}
      * )
      */
-    private $requiredRoles;
+    private Collection $requiredRoles;
+    /** @Column(type="string", length=255, options={"default"=""}) */
+    private string $name;
 
     /**
      * AdminToolboxPage constructor.
      * @param string $id
      * @param string $className
+     * @param string $name
+     * @param array $requiredRoles
      */
-    public function __construct(string $id, string $className)
+    public function __construct(string $id, string $className, string $name, array $requiredRoles = [])
     {
         $this->id = $id;
         $this->className = $className;
+        $this->name = $name;
         $this->requiredRoles = new ArrayCollection();
+
+        foreach ($requiredRoles as $role) {
+            $this->requiredRoles->add($role);
+        }
     }
 
     /**
@@ -61,6 +71,29 @@ class AdminToolboxPage
     public function getClassName(): string
     {
         return $this->className;
+    }
+
+    /**
+     * @param string $className
+     */
+    public function setClassName(string $className) {
+        $this->className = $className;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
     }
 
     /**

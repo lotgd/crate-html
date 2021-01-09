@@ -1,9 +1,7 @@
 <?php
 declare(strict_types=1);
 
-
 namespace LotGD\Crate\WWW\Controller;
-
 
 use LotGD\Crate\WWW\Form\UserCreationType;
 use LotGD\Crate\WWW\Model\User;
@@ -19,9 +17,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class RootController extends AbstractController
 {
-    /**
-     * @Route("/", name="root")
-     */
+    #[Route("/", name: "root")]
     public function root(
         GameService $gameService,
         Realm $realm,
@@ -37,9 +33,7 @@ class RootController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/register", name="registration")
-     */
+    #[Route("/register", name: "registration")]
     public function registration(
         GameService $gameService,
         Realm $realm,
