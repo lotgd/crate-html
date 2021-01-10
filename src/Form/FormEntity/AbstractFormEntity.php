@@ -57,7 +57,7 @@ abstract class AbstractFormEntity implements \ArrayAccess
      */
     public function __get(string $name)
     {
-        if (isset($this->variables[$name])) {
+        if (\array_key_exists($name, $this->variables)) {
             return $this->variables[$name];
         } else {
             return null;
@@ -71,10 +71,11 @@ abstract class AbstractFormEntity implements \ArrayAccess
      */
     public function __set(string $name, $parameter)
     {
-        if (isset($this->variables[$name])) {
+        if (\array_key_exists($name, $this->variables)) {
             $this->variables[$name] = $parameter;
         } else {
-            throw new \Exception("Class " . static::class . " does not have a property $name.");
+            $available = implode(", ", array_keys($this->variables));
+            throw new \Exception("Class " . static::class . " does not have a property $name. Available: {$available}");
         }
     }
 
@@ -124,7 +125,7 @@ abstract class AbstractFormEntity implements \ArrayAccess
      */
     public function get($var)
     {
-        if (isset($this->variables[$var])) {
+        if (\array_key_Exists($var, $this->variables)) {
             return $this->variables[$var];
         } else {
             return null;
