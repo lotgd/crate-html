@@ -14,26 +14,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class AbstractToolbox implements ToolboxInterface
 {
-    protected $action;
-    protected $id;
-    protected $controller;
-    protected $game;
-    protected $currentUser;
-    protected $request;
-
     public function __construct(
-        ?string $action, ?string $id,
-        AdministrationController $controller,
-        Game $game,
-        User $currentUser,
-        Request $request
+        protected ?string $action,
+        protected ?string $id,
+        protected AdministrationController $controller,
+        protected Game $game,
+        protected User $currentUser,
+        protected Request $request
     ) {
-        $this->action = $action;
-        $this->id = $id;
-        $this->controller = $controller;
-        $this->game = $game;
-        $this->currentUser = $currentUser;
-        $this->request = $request;
     }
 
     public function getToolbox(): ?AdminToolbox
