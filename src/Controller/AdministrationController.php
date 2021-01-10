@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace LotGD\Crate\WWW\Controller;
 
 use LotGD\Crate\WWW\AdministrationToolboxes\CharacterToolbox;
-use LotGD\Crate\WWW\AdministrationToolboxes\UserToolbox;
+use LotGD\Crate\WWW\AdministrationToolboxes\SceneToolbox;
 use LotGD\Crate\WWW\Model\AdminToolboxPage;
 use LotGD\Crate\WWW\Service\GameService;
 use LotGD\Crate\WWW\Service\Realm;

@@ -6,6 +6,7 @@ namespace LotGD\Crate\WWW\AdministrationToolboxes;
 
 
 use LotGD\Core\Game;
+use LotGD\Crate\WWW\Controller\AdministrationController;
 use LotGD\Crate\WWW\Model\User;
 use LotGD\Crate\WWW\Twig\AdminToolbox;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,7 +16,7 @@ interface ToolboxInterface
 {
     public function __construct(
         ?string $action, ?string $id,
-        AbstractController $controller,
+        AdministrationController $controller,
         Game $game,
         User $currentUser,
         Request $request
