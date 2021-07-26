@@ -20,6 +20,9 @@
     "composer/xdebug-handler": {
         "version": "1.3.2"
     },
+    "d11wtq/boris": {
+        "version": "v1.0.10"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -137,8 +140,8 @@
     "lotgd/core": {
         "version": "dev-feature/symfony4"
     },
-    "lotgd/module-crate-html-helper": {
-        "version": "dev-master"
+    "lotgd/module-dragon-kills": {
+        "version": "v0.6.1"
     },
     "lotgd/module-forest": {
         "version": "v0.4.0"
@@ -155,8 +158,14 @@
     "lotgd/module-res-fight": {
         "version": "v0.4.0"
     },
+    "lotgd/module-res-wealth": {
+        "version": "v0.6.0"
+    },
     "lotgd/module-scene-bundle": {
         "version": "v0.4.0-alpha"
+    },
+    "lotgd/module-training": {
+        "version": "v0.6.0"
     },
     "lotgd/module-village": {
         "version": "v0.4.0-alpha"
@@ -535,18 +544,6 @@
     },
     "symfony/yaml": {
         "version": "v4.2.2"
-    },
-    "twig/extensions": {
-        "version": "1.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.0",
-            "ref": "a86723ee8d8b2f9437c8ce60a5546a1c267da5ed"
-        },
-        "files": [
-            "config/packages/twig_extensions.yaml"
-        ]
     },
     "twig/extra-bundle": {
         "version": "v3.1.1"

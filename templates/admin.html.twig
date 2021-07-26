@@ -63,17 +63,23 @@
                                 {% endfor %}
                                 {% if toolbox.table.hasOptions %}
                                     <td>
-                                        {% if row.editable %}
-                                            <a href="{{ path('admin_toolbox', {"type": app.request.get("type"), "action": "edit", "id": row.id}) }}" title="Edit">
-                                                {{ octicon('pencil') }}<span class="sr-only">Edit</span>
-                                            </a>
-                                        {% endif %}
-                                        &nbsp;
-                                        {% if row.deleteable %}
-                                            <a href="{{ path('admin_toolbox', {"type": app.request.get("type"), "action": "drop", "id": row.id}) }}" title="Delete">
-                                                {{ octicon('trashcan') }}<span class="sr-only">Drop</span>
-                                            </a>
-                                        {% endif %}
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            {% if row.editable %}
+                                                <a class="btn btn-outline-primary" role="button"
+                                                   href="{{ path('admin_toolbox', {"type": app.request.get("type"), "action": "edit", "id": row.id}) }}"
+                                                   title="Edit">
+                                                    {{ octicon('pencil', "text-white") }}<span class="sr-only">Edit</span>
+                                                </a>
+                                            {% endif %}
+
+                                            {% if row.deleteable %}
+                                                <a class="btn btn-outline-primary" role="button"
+                                                   href="{{ path('admin_toolbox', {"type": app.request.get("type"), "action": "drop", "id": row.id}) }}"
+                                                   title="Delete">
+                                                    {{ octicon('trashcan') }}<span class="sr-only">Drop</span>
+                                                </a>
+                                            {% endif %}
+                                        </div>
                                     </td>
                                 {% endif %}
                             </tr>

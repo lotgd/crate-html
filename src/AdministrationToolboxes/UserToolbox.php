@@ -6,6 +6,7 @@ namespace LotGD\Crate\WWW\AdministrationToolboxes;
 use Doctrine\DBAL\Types\ConversionException;
 use LotGD\Crate\WWW\Form\FormEntity\UserFormEntity;
 use LotGD\Crate\WWW\Form\SceneEditForm;
+use LotGD\Crate\WWW\Form\UserEditForm;
 use LotGD\Crate\WWW\Model\Role;
 use LotGD\Crate\WWW\Model\User;
 use LotGD\Crate\WWW\Twig\AdminToolbox;
@@ -67,22 +68,16 @@ class UserToolbox extends AbstractToolbox
                 throw new \Exception("User with id {$this->id} was not found");
             }
 
-            $toolbox = new AdminToolbox("Edit user {$user->getDisplayName()}");
-
-            $userFormEntity = new UserFormEntity($this->game);
-            $userFormEntity->loadFromEntity($user);
-
-            $form = $this->controller->createForm(SceneEditForm::class, $userFormEntity, [
-                "roles" => $em->getRepository(Role::class)->findAll()
-            ]);
-            $form->handleRequest($this->request);
-
-            if ($form->isSubmitted() and $form->isValid()) {
-                $userFormEntity->saveToEntity($user);
-                $this->controller->addFlash('success', 'User edited successfully.');
-            }
-
-            $toolbox->setForm($form->createView());
+            $toolbox = $this->createEditToolboxPage(
+                title: "Edit user {$user->getDisplayName()}",
+                successMessage: "User edited successfully",
+                formClass: UserEditForm::class,
+                dbEntity: $user,
+                formEntityClass: UserFormEntity::class,
+                options: [
+                    "roles" => $em->getRepository(Role::class)->findAll()
+                ],
+            );
         } catch (ConversionException $e) {
             $toolbox = new AdminToolbox("Error");
             $toolbox->setError("The given ID is invalid.");

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LotGD\Crate\WWW\Model;
 
+use DateTime;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
@@ -22,11 +23,11 @@ class Role
     use Deletor;
 
     /** @Id @Column(type="string", length=50, unique=True) */
-    private $role;
+    private string $role;
     /** @Column(type="string", length=250, nullable=True) */
-    private $module;
+    private ?string $module;
     /** @Column(type="datetime") */
-    private $createdAt;
+    private DateTime $createdAt;
 
     /**
      * Role constructor.
@@ -38,7 +39,7 @@ class Role
     {
         $this->role = $role;
         $this->module = $module;
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new DateTime();
     }
 
     /**
@@ -54,15 +55,15 @@ class Role
      * Returns the module
      * @return string|null
      */
-    public function getModule(): string
+    public function getModule(): ?string
     {
         return $this->module;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
     }

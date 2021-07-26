@@ -5,6 +5,7 @@ namespace LotGD\Crate\WWW\Console\Commands\AdminToolbox;
 
 use LotGD\Core\Console\Command\BaseCommand;
 use LotGD\Crate\WWW\Model\AdminToolboxPage;
+use LotGD\Crate\WWW\Model\Role;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -44,6 +45,18 @@ class EditCommand extends BaseCommand
                     description: "New toolbox name",
                     default: null,
                 ),
+                new InputOption(
+                    name: "addRoles",
+                    mode: InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED,
+                    description: "Add role identifiers required to access this page",
+                    default: null,
+                ),
+                new InputOption(
+                    name: "removeRoles",
+                    mode: InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED,
+                    description: "Remove role identifiers required to access this page",
+                    default: null,
+                ),
             ]));
     }
 
@@ -58,6 +71,7 @@ class EditCommand extends BaseCommand
 
         $toolbox_id = $input->getArgument("id");
 
+        /** @var AdminToolboxPage $toolbox */
         $toolbox = $em->getRepository(AdminToolboxPage::class)->find($toolbox_id);
 
         if (!$toolbox) {
@@ -82,6 +96,48 @@ class EditCommand extends BaseCommand
 
             $toolbox->setClassName($new_class);
             $changed = true;
+        }
+
+        $roleRepository = $em->getRepository(Role::class);
+
+        # Add roles
+        $rolesToAdd = $input->getOption("addRoles");
+
+        foreach ($rolesToAdd as $roleId) {
+            /** @var Role $role */
+            $role = $roleRepository->find($roleId);
+
+            if (!$role) {
+                $style->warning("RoleID {$roleId} was not found and was skipped.");
+            } elseif ($toolbox->getRequiredRoles()->contains($role)) {
+                $style->note("{$roleId} already exists and was skipped");
+            } else {
+                $toolbox->addRequiredRole($role);
+                $changed = true;
+                $style->note("RoleID {$roleId} was added.");
+            }
+        }
+
+        # Remove roles
+        $rolesToRemove = $input->getOption("removeRoles");
+
+        foreach ($rolesToRemove as $roleId) {
+            if ($roleId === "ROLE_SUPERUSER") {
+                $style->error("Cannot remove {$roleId}.");
+            }
+
+            /** @var Role $role */
+            $role = $roleRepository->find($roleId);
+
+            if (!$role) {
+                $style->warning("RoleID {$roleId} was not found and was skipped.");
+            } elseif (!$toolbox->getRequiredRoles()->contains($role)) {
+                $style->note("Toolbox page does not require {$roleId}, removal was skipped");
+            } else {
+                $role = $toolbox->getRequiredRoles()->removeElement($role);
+                $changed = true;
+                $style->note("RoleID {$roleId} was removed.");
+            }
         }
 
         if (!$changed) {

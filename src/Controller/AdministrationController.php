@@ -72,7 +72,7 @@ class AdministrationController extends AbstractController
         $page = $em->getRepository(AdminToolboxPage::class)->find($type);
 
         if (!$page) {
-            throw new NotFoundHttpException("The administration toolbox {$page} has not been found.");
+            throw new NotFoundHttpException("The administration toolbox {$type} has not been found.");
         }
 
         $toolboxClass = $page->getClassName();
