@@ -14,7 +14,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "edwinhoksberg/octicons-php": "^1.0",
-        "lotgd/core": "dev-master",
+        "lotgd/core": "dev-master as 0.6.0-alpha.7",
         "sensio/framework-extra-bundle": "^5.6",
         "symfony/asset": "*",
         "symfony/console": "*",
@@ -37,16 +37,18 @@
         "symfony/validator": "*",
         "symfony/web-link": "*",
         "symfony/yaml": "*",
-        "twig/extensions": "*"
+        "twig/twig": "^3.0"
     },
     "require-dev": {
         "lotgd/module-forest": "*",
         "lotgd/module-gender": "*",
         "lotgd/module-new-day": "*",
-        "lotgd/module-res-charstats": "dev-master",
+        "lotgd/module-res-charstats": "*",
         "lotgd/module-res-fight": "*",
         "lotgd/module-scene-bundle": "*",
         "lotgd/module-village": "*",
+        "lotgd/module-training": "*",
+        "lotgd/module-dragon-kills": "*",
 
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "*",
@@ -99,7 +101,10 @@
         }
     },
     "repositories": [
-        {"type": "path", "url": "../*"}
+        {
+            "type": "composer",
+            "url": "https://raw.githubusercontent.com/lotgd/packages/master/build/packages.json"
+        }
     ],
     "minimum-stability": "dev",
     "prefer-stable" : true

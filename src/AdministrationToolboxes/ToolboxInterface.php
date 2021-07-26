@@ -1,9 +1,7 @@
 <?php
 declare(strict_types=1);
 
-
 namespace LotGD\Crate\WWW\AdministrationToolboxes;
-
 
 use LotGD\Core\Game;
 use LotGD\Crate\WWW\Controller\AdministrationController;
@@ -15,7 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 interface ToolboxInterface
 {
     public function __construct(
-        ?string $action, ?string $id,
+        ?string $action,
+        ?string $id,
         AdministrationController $controller,
         Game $game,
         User $currentUser,

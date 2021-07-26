@@ -121,9 +121,9 @@ abstract class AbstractFormEntity implements \ArrayAccess
 
     /**
      * @param $var
-     * @return mixed|null
+     * @return mixed
      */
-    public function get($var)
+    public function get($var): mixed
     {
         if (\array_key_Exists($var, $this->variables)) {
             return $this->variables[$var];

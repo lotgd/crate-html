@@ -55,9 +55,23 @@ class AppExtension extends AbstractExtension
 
     public function formatContent($text)
     {
-        $text = explode("\n\n", $text);
-        $text = implode("</p><p>", $text);
-        return "<p>{$text}</p>";
+        // For \r\n making it into the database from windows
+        $text = str_replace("\r\n","\n", $text);
+        // Shouldn't be necessary, but replaces old mac format, too.
+        $text = str_replace("\r","\n", $text);
+
+        // Make breaks at every linebreak
+        $text = explode("\n", $text);
+        $newText = "";
+        foreach ($text as $textLine) {
+            if (trim($textLine) == "") {
+                $newText .= "\n\t</p><p>\n";
+            } else {
+                $newText .= $textLine . "\n";
+            }
+        }
+
+        return "<p>{$newText}</p>";
     }
 
     /**

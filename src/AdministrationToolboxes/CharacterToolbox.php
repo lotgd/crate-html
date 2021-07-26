@@ -66,21 +66,13 @@ class CharacterToolbox extends AbstractToolbox
                 throw new \Exception("Character with id {$this->id} was not found");
             }
 
-            $toolbox = new AdminToolbox("Edit character {$character->getName()}");
-
-            $characterFormEntity = new CharacterFormEntity($this->game);
-            $characterFormEntity->loadFromEntity($character);
-
-            $form = $this->controller->createForm(CharacterEditForm::class, $characterFormEntity, [
-            ]);
-            $form->handleRequest($this->request);
-
-            if ($form->isSubmitted() and $form->isValid()) {
-                $characterFormEntity->saveToEntity($character);
-                $this->controller->addFlash('success', 'Character edited successfully.');
-            }
-
-            $toolbox->setForm($form->createView());
+            $toolbox = $this->createEditToolboxPage(
+                title: "Edit character {$character->getName()}",
+                successMessage: "Character edited successfully",
+                formClass: CharacterEditForm::class,
+                dbEntity: $character,
+                formEntityClass: CharacterFormEntity::class,
+            );
         } catch (ConversionException $e) {
             $toolbox = new AdminToolbox("Error");
             $toolbox->setError("The given ID is invalid.");

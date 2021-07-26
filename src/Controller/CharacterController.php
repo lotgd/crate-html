@@ -53,6 +53,8 @@ class CharacterController extends AbstractController
             }
         }
 
+        $viewpoint = $game->getViewpoint();
+
         return $this->render('scene.html.twig', [
             "realm" => $realm,
             "user" => $security->getUser(),

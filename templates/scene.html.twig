@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{ viewpoint.title }}</h1>
+    <h1>{{ viewpoint.renderedTitle }}</h1>
 
     {% if viewpoint_error %}
     <div class="alert-danger">
@@ -14,7 +14,7 @@
     </div>
     {% endif %}
 
-    {{ viewpoint.description|e|viewpoint_format|raw }}
+    {{ viewpoint.renderedDescription|e|viewpoint_format|raw }}
 {% endblock %}
 
 {% block left_content %}
@@ -22,7 +22,7 @@
         {% if ag.id == "lotgd/core/hidden" %}
         {% elseif ag.id == "lotgd/core/default" %}
         {% else %}
-            <h6 class="nav-header text-secondary" title="{{ ag.id }}">{{ ag.title }}</h6>
+            <h6 class="nav-header text-secondary" title="{{ ag.id }}">{{ ag.renderedTitle }}</h6>
         {% endif %}
 
         <nav class="nav flex-column">
@@ -32,7 +32,7 @@
                         {% if a.title is empty %}
                             ???
                         {% else %}
-                            {{ a.title }}
+                            {{ a.renderedTitle }}
                         {% endif %}
                     </a>
                 </span>

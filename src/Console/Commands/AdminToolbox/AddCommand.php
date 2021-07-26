@@ -48,7 +48,7 @@ class AddCommand extends BaseCommand
                 new InputArgument(
                     name: "roleIds",
                     mode: InputArgument::IS_ARRAY | InputArgument::OPTIONAL,
-                    description: "New classname",
+                    description: "List of role identifiers required to access this page",
                     default: null,
                 ),
             ]));
@@ -83,11 +83,12 @@ class AddCommand extends BaseCommand
         $roleIds = $input->getArgument("roleIds");
         /** @var Role[] $roles */
         $roles = [];
+        $roleRepository = $em->getRepository(Role::class);
         $hasSuperuserRole = false;
 
         foreach ($roleIds as $roleId) {
             /** @var Role $role */
-            $role = $em->getRepository(Role::class)->find($roleId);
+            $role = $roleRepository->find($roleId);
 
             if (!$role) {
                 $style->warning("RoleID {$roleId} was not found and was skipped.");
@@ -127,8 +128,7 @@ class AddCommand extends BaseCommand
             $style->success("Admin toolbox page was added.");
             return Command::SUCCESS;
         } catch (\Exception $e) {
-            $style->error("An error occured: $e");
-            return Command::FAILURE;
+            $style->error($e->getMessage());
         }
     }
 }
