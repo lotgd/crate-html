@@ -3,12 +3,15 @@ declare(strict_types=1);
 
 namespace LotGD\Crate\WWW\Controller;
 
+use LotGD\Core\Events\EventContextData;
 use LotGD\Core\Exceptions\ActionNotFoundException;
 use LotGD\Core\Models\CharacterStats;
+use LotGD\Crate\WWW\Model\User;
 use LotGD\Crate\WWW\Service\GameService;
 use LotGD\Crate\WWW\Service\Realm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,12 +29,15 @@ class CharacterController extends AbstractController
      */
     #[Route("/scene/{charId}/{action}", name: "scene_view", defaults: ["action"=>null])]
     public function sceneRender(
-        $charId, $action,
+        string $charId,
+        string $action,
         GameService $gameService,
         Realm $realm,
-        Security $security
+        Security $security,
+        Request $request,
     ): Response {
-        $user = $security->getUser(); /* @var $user \LotGD\Crate\WWW\Model\User */
+        /* @var $user User */
+        $user = $security->getUser();
         $character = $user->getCharacterWithId($charId);
 
         // Abort if the character does not belong to the user.
@@ -46,7 +52,7 @@ class CharacterController extends AbstractController
         // If an action has been given, take it.
         if (!empty($action)) {
             try {
-                $game->takeAction($action);
+                $game->takeAction($action, ["lotgd/crate-html" => ["request" => $request]]);
                 return $this->redirectToRoute("scene_view", ["charId" => $charId]);
             } catch (ActionNotFoundException $e) {
                 $viewpoint_error = $e;
@@ -55,6 +61,34 @@ class CharacterController extends AbstractController
 
         $viewpoint = $game->getViewpoint();
 
+        $attachments_compiled = [];
+
+        foreach($viewpoint->getAttachments() as $attachment) {
+            $contextData = EventContextData::create([
+                "attachment" => $attachment,
+                "renderedAttachment" => [],
+            ]);
+
+            $attachmentClass = get_class($attachment);
+
+            $changedContextData = $game->getEventManager()->publish(
+                "h/lotgd/crate/html/displayScene/renderAttachment/$attachmentClass",
+                $contextData
+            );
+
+            if (empty($changedContextData->get("renderedAttachment"))) {
+                $attachments_compiled[$attachment->getId()] = [
+                    "type" => $attachmentClass,
+                    "data" => $attachment->getData(),
+                ];
+            } else {
+                $attachments_compiled[$attachment->getId()] = [
+                    "type" => $attachmentClass,
+                    "data" => $changedContextData->get("renderedAttachment"),
+                ];
+            }
+        }
+
         return $this->render('scene.html.twig', [
             "realm" => $realm,
             "user" => $security->getUser(),
@@ -62,6 +96,7 @@ class CharacterController extends AbstractController
             "character_stats" => new CharacterStats($game, $game->getCharacter()),
             "viewpoint" => $game->getViewpoint(),
             "viewpoint_error" => $viewpoint_error??null,
+            "attachments" => $attachments_compiled,
         ]);
     }
 }
