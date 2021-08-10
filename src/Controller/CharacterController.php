@@ -5,6 +5,9 @@ namespace LotGD\Crate\WWW\Controller;
 
 use LotGD\Core\Events\EventContextData;
 use LotGD\Core\Exceptions\ActionNotFoundException;
+use LotGD\Core\Exceptions\CharacterNotFoundException;
+use LotGD\Core\Exceptions\InvalidConfigurationException;
+use LotGD\Core\Exceptions\SceneNotFoundException;
 use LotGD\Core\Models\CharacterStats;
 use LotGD\Crate\WWW\Model\User;
 use LotGD\Crate\WWW\Service\GameService;
@@ -54,12 +57,20 @@ class CharacterController extends AbstractController
             try {
                 $game->takeAction($action, ["lotgd/crate-html" => ["request" => $request]]);
                 return $this->redirectToRoute("scene_view", ["charId" => $charId]);
-            } catch (ActionNotFoundException $e) {
+            } catch (ActionNotFoundException | SceneNotFoundException $e) {
                 $viewpoint_error = $e;
             }
         }
 
-        $viewpoint = $game->getViewpoint();
+        try {
+            $viewpoint = $game->getViewpoint();
+        } catch (CharacterNotFoundException $e) {
+            $this->addFlash("warning", "Character was not found");
+            return $this->redirectToRoute("ucp_root");
+        } catch (InvalidConfigurationException $e) {
+            $this->addFlash("error", "Invalid configuration: {$e->getMessage()}");
+            return $this->redirectToRoute("ucp_root");
+        }
 
         $attachments_compiled = [];
 
