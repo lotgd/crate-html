@@ -30,7 +30,7 @@ class CharacterController extends AbstractController
     #[Route("/scene/{charId}/{action}", name: "scene_view", defaults: ["action"=>null])]
     public function sceneRender(
         string $charId,
-        string $action,
+        ?string $action,
         GameService $gameService,
         Realm $realm,
         Security $security,
